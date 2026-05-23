@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FDFCFB; /* warm off-white */
+  --foreground: #1A1A2E; /* deep academic navy */
+  --surface: #FFF8F5;    /* soft peach tint */
+  --primary: #1A1A2E;
+  --accent: #E8896A;     /* warm peach-coral */
+  --muted: #6B7280;
+  --border: #EDE8E3;
+  --success: #2D6A4F;
+  --error: #B91C1C;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom visual signatures conforming to Premium Academic rules */
+.academic-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px -2px rgba(26, 26, 46, 0.04), 0 2px 8px -1px rgba(26, 26, 46, 0.02);
+  border-radius: 0.75rem;
+  transition: transform 300ms ease-out, box-shadow 300ms ease-out;
+}
+
+.academic-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -4px rgba(26, 26, 46, 0.08), 0 4px 12px -2px rgba(26, 26, 46, 0.04);
+}
+
+.glow-gradient {
+  background: radial-gradient(circle at top, rgba(232, 137, 106, 0.1), transparent 70%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Animations matching Stitch specifications */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Primary form style */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
+}
+
+.form-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(232, 137, 106, 0.2);
+}
+
+/* Primary buttons with academic touch targets */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: #ffffff;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  min-height: 48px;
+  transition: background-color 200ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface);
+  color: var(--primary);
+  border: 1px solid var(--border);
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  min-height: 48px;
+  transition: background-color 200ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
