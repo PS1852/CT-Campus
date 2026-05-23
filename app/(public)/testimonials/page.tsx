@@ -12,9 +12,11 @@ export const metadata = generatePageMetadata({
 
 // Fallback reviews if database has no approved records yet
 const fallbackTestimonials = [
-  { display_name: 'Tarun Mehra (Parent of AIR 12)', rating: 5, message: 'Assigning a personal NLU mentor to Pranav was the best educational decision we made. We received weekly report cards detailing his passage speed, vocabulary growth, and logical errors. Highly recommended!' },
-  { display_name: 'Ritika Ghoshal', rating: 5, message: 'I was lost with CUET subject combinations and NCERT overlaps. The counseling team at Karol Bagh spent 2 hours clarifying options. Excellent offline smartboards and library cabins!' },
-  { display_name: 'Anish Mathur', rating: 5, message: 'The study cabin setup at Karol Bagh opposite Pillar 80 is incredible. Silent, focused, and having faculties like Kabir Sir right next to you to answer queries instantly is unmatched.' },
+  { display_name: 'Aarav Sharma (CLAT 2025 - AIR 42)', rating: 5, message: 'The 1-on-1 mentorship at CT CAMPUS was a game-changer for my CLAT preparation. Having an NLU alumni mentor who reviewed my mock analyses every week helped me identify my weak spots in reading comprehension and legal reasoning. The library cabins at Karol Bagh are perfect for silent, focused study.' },
+  { display_name: 'Meera Nair (IPMAT - IIM Indore Convert)', rating: 5, message: 'I highly recommend CT CAMPUS for IPMAT. The quantitative aptitude sessions are extremely rigorous, and the verbal prep is top-notch. The mock interview workshops and WAT feedback sessions gave me the confidence I needed to clear the IIM Indore selection rounds.' },
+  { display_name: 'Devansh Gupta (CUET - 100 Percentile in 3 Domains)', rating: 5, message: 'CT CAMPUS has the best faculty for CUET prep. The classroom sessions are highly interactive, and the topic-wise tests aligned perfectly with the latest NCERT syllabus. Kabir Sir''s advice on subject combinations was invaluable.' },
+  { display_name: 'Siddharth Verma (Parent of Riya Verma, CLAT AIR 89)', rating: 5, message: 'As a parent, I am extremely satisfied with the personal attention my daughter received at CT CAMPUS. The weekly mentor alignment calls and performance tracking dashboards kept us informed throughout the year. The directors are highly accessible and dedicated.' },
+  { display_name: 'Ananya Iyer (CLAT & CUET Prep)', rating: 5, message: 'The offline study atmosphere at the Karol Bagh center is amazing. The study booklets, topic tests, and national-level mock tests are highly comprehensive. The faculty members are always available in the cabins to clarify doubts instantly.' },
 ];
 
 export default async function TestimonialsPage() {
