@@ -53,7 +53,7 @@ export default function AdmissionForm({ courses }: AdmissionFormProps) {
       const { error: oAuthError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=/admissions`,
+          redirectTo: `${window.location.origin}/auth/callback?next=/fees`,
         },
       });
       if (oAuthError) throw oAuthError;
