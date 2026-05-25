@@ -8,9 +8,18 @@ export async function middleware(request: NextRequest) {
     },
   });
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // Bail out early if env vars are not set
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('Missing Supabase env vars in middleware');
+    return response;
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         getAll() {
@@ -34,8 +43,7 @@ export async function middleware(request: NextRequest) {
   // 1. REFRESH AUTH SESSION
   const { data: { user } } = await supabase.auth.getUser();
 
-  const nextUrl = request.nextUrl;
-  const path = nextUrl.pathname;
+  const path = request.nextUrl.pathname;
 
   // 2. PROTECT STUDENT DASHBOARD
   if (path.startsWith('/dashboard')) {
@@ -52,12 +60,15 @@ export async function middleware(request: NextRequest) {
 
     // Edge-compatible direct REST API check to verify user profile role
     try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const accessToken = sessionData.session?.access_token || '';
+
       const profileResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/profiles?user_id=eq.${user.id}&select=role`,
+        `${supabaseUrl}/rest/v1/profiles?user_id=eq.${user.id}&select=role`,
         {
           headers: {
-            apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-            Authorization: `Bearer ${supabase.auth.getSession() ? (await supabase.auth.getSession()).data.session?.access_token : ''}`,
+            apikey: supabaseAnonKey,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -65,7 +76,6 @@ export async function middleware(request: NextRequest) {
       const profiles = await profileResponse.json();
       
       if (!profiles || profiles.length === 0 || profiles[0].role !== 'admin') {
-        // Redirection if session is authenticated but role is not admin
         console.warn(`Unauthorized admin panel access attempt by: ${user.email}`);
         return NextResponse.redirect(new URL('/admin/login?error=unauthorized', request.url));
       }
@@ -79,5 +89,9 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/admin/:path*'],
+  matcher: [
+    '/dashboard/:path*',
+    '/admin/:path*',
+    '/auth/callback',
+  ],
 };

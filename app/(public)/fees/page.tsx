@@ -164,47 +164,17 @@ function FeesPageContent() {
         throw new Error('Please enter a valid 10-digit mobile number.');
       }
 
-      // Check / Sync Profile
-      let { data: profile } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('phone', cleanPhone)
-        .maybeSingle();
+      // Use SECURITY DEFINER RPC to bypass RLS for guest checkout
+      const { data, error: rpcError } = await supabase.rpc('direct_checkout', {
+        p_name: name.trim(),
+        p_phone: cleanPhone,
+        p_email: email.trim() || null,
+        p_course_id: selectedCourseId,
+      });
 
-      let profileId = '';
-      if (profile) {
-        profileId = profile.id;
-      } else {
-        const { data: newProfile, error: profileErr } = await supabase
-          .from('profiles')
-          .insert({
-            full_name: name.trim(),
-            phone: cleanPhone,
-            role: 'student',
-            email: email.trim() || null
-          })
-          .select()
-          .single();
+      if (rpcError) throw rpcError;
 
-        if (profileErr) throw profileErr;
-        profileId = newProfile.id;
-      }
-
-      // Create Admission Record
-      const { data: newAdmission, error: admErr } = await supabase
-        .from('admissions')
-        .insert({
-          student_id: profileId,
-          course_id: selectedCourseId,
-          status: 'pending',
-          payment_submitted: false
-        })
-        .select()
-        .single();
-
-      if (admErr) throw admErr;
-
-      router.push(`/fees?admission_id=${newAdmission.id}`);
+      router.push(`/fees?admission_id=${data.admission_id}`);
     } catch (err: any) {
       setError(err.message || 'Staging checkout failed. Please retry.');
     } finally {
