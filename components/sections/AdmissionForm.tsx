@@ -185,7 +185,8 @@ export default function AdmissionForm({ courses }: AdmissionFormProps) {
                 placeholder="10-digit number"
                 value={formData.phone}
                 onChange={handleChange}
-                className="custom-input pl-14 w-full"
+                className="custom-input w-full"
+                style={{ paddingLeft: '3.25rem' }}
               />
             </div>
           </div>
