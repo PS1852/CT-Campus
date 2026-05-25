@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { createClient } from '@/lib/supabase/server';
-import { CheckCircle2, UserCheck, CreditCard, FileText, CalendarRange, Lock, PhoneCall, Mail } from 'lucide-react';
+import { PhoneCall, Mail } from 'lucide-react';
 import AdmissionForm from '@/components/sections/AdmissionForm';
 
 export const metadata = generatePageMetadata({
@@ -94,26 +94,8 @@ export default async function AdmissionsPage() {
         </div>
       </main>
 
-      {/* Guidelines & Scholarship Info */}
-      <section className="w-full max-w-[800px] mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 text-left px-margin-mobile md:px-0">
-        {/* Scholarships */}
-        <div className="bg-surface-white rounded-lg border border-border-light p-6 md:p-8 space-y-4">
-          <h3 className="font-manrope text-lg font-bold text-primary">CT CAMPUS Scholarship Pool</h3>
-          <p className="text-xs md:text-sm text-primary/60 leading-relaxed">
-            We grant customized program fee waivers of up to 50% calculated automatically based on your academic scorecards:
-          </p>
-          <ul className="space-y-3 text-xs md:text-sm font-semibold text-primary/70">
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="h-4.5 w-4.5 text-success shrink-0 mt-0.5" />
-              Class 10 or 12 CBSE board scores above 95% (30% waiver).
-            </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="h-4.5 w-4.5 text-success shrink-0 mt-0.5" />
-              Score thresholds cleared in our monthly mock contests.
-            </li>
-          </ul>
-        </div>
-
+      {/* Registration Support */}
+      <section className="w-full max-w-[800px] mt-12 text-left px-margin-mobile md:px-0">
         {/* Support Helpdesks */}
         <div className="bg-primary text-surface-white rounded-lg p-6 md:p-8 space-y-4 flex flex-col justify-between">
           <div>
