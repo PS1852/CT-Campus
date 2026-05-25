@@ -2,12 +2,16 @@ import { createClient } from '@supabase/supabase-js';
 
 export function hasServiceRoleKey() {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  return Boolean(serviceRoleKey && serviceRoleKey !== 'dummy_service_role_key_for_compilation');
+  return Boolean(serviceRoleKey);
 }
 
 export function createAdminClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ihidmclkugsmoygegipp.supabase.co';
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'dummy_service_role_key_for_compilation';
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error('Missing Supabase admin environment variables.');
+  }
   
   return createClient(
     supabaseUrl,

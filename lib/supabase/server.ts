@@ -3,8 +3,12 @@ import { cookies } from 'next/headers';
 
 export function createClient() {
   const cookieStore = cookies();
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ihidmclkugsmoygegipp.supabase.co';
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloaWRtY2xrdWdzbW95Z2VnaXBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1NDQ1NTQsImV4cCI6MjA5NTEyMDU1NH0.wx4UylX3Bm3Ku4m7scftIE5wntj3x1ELS5zNXtCbX6Q';
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !anonKey) {
+    throw new Error('Missing Supabase public environment variables.');
+  }
 
   return createServerClient(
     supabaseUrl,

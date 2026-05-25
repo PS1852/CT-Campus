@@ -6,9 +6,14 @@ export async function middleware(request: NextRequest) {
     request,
   });
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ihidmclkugsmoygegipp.supabase.co';
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloaWRtY2xrdWdzbW95Z2VnaXBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1NDQ1NTQsImV4cCI6MjA5NTEyMDU1NH0.wx4UylX3Bm3Ku4m7scftIE5wntj3x1ELS5zNXtCbX6Q';
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const adminEmail = (process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'ctcampus2019@gmail.com').toLowerCase();
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('Missing Supabase public environment variables.');
+    return response;
+  }
 
   const supabase = createServerClient(
     supabaseUrl,
