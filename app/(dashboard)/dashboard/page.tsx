@@ -7,6 +7,8 @@ export const dynamic = 'force-dynamic';
 
 export default async function StudentDashboardPage() {
   const supabase = createClient();
+  const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '8800833665';
+  const coachingEmail = process.env.NEXT_PUBLIC_COACHING_EMAIL || 'ctcampus2019@gmail.com';
 
   // Load authenticated user session
   const { data: { user } } = await supabase.auth.getUser();
@@ -90,10 +92,12 @@ export default async function StudentDashboardPage() {
                         <span className="text-[10px] text-muted block">Applied on: {submittedAt}</span>
                       </div>
                       <span className={`inline-flex px-2.5 py-0.5 rounded-full text-[9px] uppercase font-bold border ${
-                        adm.status === 'submitted'
-                          ? 'bg-amber-50 border-amber-200 text-amber-600'
-                          : adm.status === 'approved'
+                        adm.status === 'approved'
                           ? 'bg-emerald-50 border-emerald-200 text-emerald-600'
+                          : adm.status === 'pending_verification'
+                          ? 'bg-amber-50 border-amber-200 text-amber-600'
+                          : adm.status === 'pending'
+                          ? 'bg-slate-50 border-slate-200 text-slate-500'
                           : 'bg-red-50 border-red-200 text-red-600'
                       }`}>
                         {adm.status}
@@ -151,7 +155,8 @@ export default async function StudentDashboardPage() {
               Mentorship Helpline
             </h4>
             <p>For urgent questions regarding Mock schedules, coupon codes, or printed booklet shipping, call our campus advisors.</p>
-            <div className="font-semibold text-accent pt-1">Phone Helpline: +91 8800833665</div>
+            <div className="font-semibold text-accent pt-1 font-mono">Phone Helpline: +91 {supportPhone}</div>
+            <div className="text-[10px] text-muted font-bold font-body">Email Support: {coachingEmail}</div>
           </div>
         </div>
       </div>

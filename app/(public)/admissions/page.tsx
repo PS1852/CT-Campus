@@ -19,6 +19,8 @@ const fallbackCourses = [
 
 export default async function AdmissionsPage() {
   const supabase = createClient();
+  const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '8800833665';
+  const coachingEmail = process.env.NEXT_PUBLIC_COACHING_EMAIL || 'ctcampus2019@gmail.com';
 
   const { data: dbCourses } = await supabase
     .from('courses')
@@ -114,8 +116,8 @@ export default async function AdmissionsPage() {
                 If you encounter any glitches during online document submission or need help regarding payment installments structures, contact our Karol Bagh helpdesk immediately.
               </p>
               <div className="space-y-1.5 pt-2 text-xs">
-                <div className="font-semibold text-accent">Phone: +91 8800833665</div>
-                <div className="text-background/80">Email: admissions@ctcampus.co.in</div>
+                <div className="font-semibold text-accent">Phone: +91 {supportPhone}</div>
+                <div className="text-background/80">Email: {coachingEmail}</div>
                 <div className="text-background/80 font-semibold">Location: Karol Bagh Campus Opp. Pillar 80</div>
               </div>
             </div>

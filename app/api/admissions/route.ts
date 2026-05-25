@@ -48,6 +48,7 @@ export async function POST(request: Request) {
         .insert({
           full_name: name.trim(),
           phone: cleanPhone,
+          email: email ? email.trim() : null,
           role: 'student'
         })
         .select()
@@ -65,7 +66,8 @@ export async function POST(request: Request) {
       .insert({
         student_id: studentProfileId,
         course_id: course_id,
-        status: 'submitted',
+        status: 'pending',
+        payment_submitted: false,
         documents_url: documents_url ? [documents_url] : []
       })
       .select()
