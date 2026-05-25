@@ -216,7 +216,7 @@ export default function AdminStudentsPage() {
                         <span>+91 {adm.profiles?.phone}</span>
                       </a>
                       {adm.profiles?.email && (
-                        <a href={`mailto:${adm.profiles?.email}`} className="flex items-center gap-2 hover:text-focus-teal">
+                        <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${adm.profiles?.email}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-focus-teal">
                           <Mail className="h-4 w-4 text-focus-teal shrink-0" />
                           <span>{adm.profiles?.email}</span>
                         </a>

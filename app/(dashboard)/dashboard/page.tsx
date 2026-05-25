@@ -187,7 +187,7 @@ export default async function StudentDashboardPage() {
               <a href={`tel:${supportPhone}`} className="text-focus-teal hover:underline flex items-center gap-1.5">
                 <PhoneCall className="h-3.5 w-3.5" /> Call Advisor: +91 {supportPhone}
               </a>
-              <a href={`mailto:${coachingEmail}`} className="text-primary/45 flex items-center gap-1.5">
+              <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${coachingEmail}`} target="_blank" rel="noopener noreferrer" className="text-primary/45 flex items-center gap-1.5">
                 <Mail className="h-3.5 w-3.5 text-primary/45" /> {coachingEmail}
               </a>
             </div>

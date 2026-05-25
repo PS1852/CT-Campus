@@ -220,8 +220,8 @@ Please verify my payment and activate my account.
 
 Thank you.`);
 
-      const mailtoUrl = `mailto:${coachingEmail}?subject=${emailSubject}&body=${emailBody}`;
-      window.location.href = mailtoUrl;
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${coachingEmail}&su=${emailSubject}&body=${emailBody}`;
+      window.open(gmailUrl, '_blank');
 
       setSuccess(true);
     } catch (err: any) {

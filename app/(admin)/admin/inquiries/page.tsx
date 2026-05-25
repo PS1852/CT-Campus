@@ -61,7 +61,7 @@ export default async function AdminInquiriesPage() {
                         <span>+91 {inq.phone}</span>
                       </a>
                       {inq.email && (
-                        <a href={`mailto:${inq.email}`} className="flex items-center gap-2 hover:text-accent">
+                        <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${inq.email}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent">
                           <Mail className="h-4 w-4 text-accent" />
                           <span>{inq.email}</span>
                         </a>

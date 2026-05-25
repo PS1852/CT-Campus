@@ -126,7 +126,7 @@ export default async function AdmissionsPage() {
             <a href={`tel:${supportPhone}`} className="flex items-center gap-2 text-focus-teal font-bold hover:text-surface-white transition-colors">
               <PhoneCall className="h-4 w-4" /> Call Mentor: +91 {supportPhone}
             </a>
-            <a href={`mailto:${coachingEmail}`} className="flex items-center gap-2 text-surface-white/60 hover:text-focus-teal transition-colors">
+            <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${coachingEmail}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-surface-white/60 hover:text-focus-teal transition-colors">
               <Mail className="h-4 w-4" /> {coachingEmail}
             </a>
           </div>

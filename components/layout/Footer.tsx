@@ -94,7 +94,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3 text-sm text-surface-container/70">
                 <Mail className="h-4 w-4 text-focus-teal shrink-0" />
-                <a href={`mailto:${coachingEmail}`} className="hover:text-focus-teal transition-colors">
+                <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${coachingEmail}`} target="_blank" rel="noopener noreferrer" className="hover:text-focus-teal transition-colors">
                   {coachingEmail}
                 </a>
               </li>
