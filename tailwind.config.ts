@@ -26,7 +26,7 @@ const config: Config = {
         error: "var(--error)",
       },
       fontFamily: {
-        display: ["var(--font-playfair)", "serif"],
+        display: ["var(--font-poppins)", "sans-serif"],
         body: ["var(--font-inter)", "sans-serif"],
       },
       boxShadow: {
