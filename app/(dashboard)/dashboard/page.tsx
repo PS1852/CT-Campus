@@ -1,6 +1,6 @@
 import React from 'react';
 import { createClient } from '@/lib/supabase/server';
-import { GraduationCap, Award, BookOpen, Clock, FileText, AlertCircle, Calendar, MessageSquare, PhoneCall, QrCode } from 'lucide-react';
+import { GraduationCap, Award, BookOpen, Clock, FileText, AlertCircle, Calendar, MessageSquare, PhoneCall, QrCode, Mail } from 'lucide-react';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';

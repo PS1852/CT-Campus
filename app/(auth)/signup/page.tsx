@@ -26,7 +26,8 @@ export default function SignupPage() {
       }
     };
     checkUser();
-  }, [router, supabase]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router]);
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();

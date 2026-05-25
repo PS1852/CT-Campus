@@ -49,7 +49,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://ihidmclkugsmoygegipp.supabase.co https://lh3.googleusercontent.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://ihidmclkugsmoygegipp.supabase.co wss://ihidmclkugsmoygegipp.supabase.co; frame-src 'self' https://checkout.razorpay.com; child-src 'self' https://checkout.razorpay.com;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; img-src 'self' data: https://ihidmclkugsmoygegipp.supabase.co https://lh3.googleusercontent.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://ihidmclkugsmoygegipp.supabase.co wss://ihidmclkugsmoygegipp.supabase.co https://accounts.google.com https://*.googleapis.com; frame-src 'self' https://checkout.razorpay.com https://accounts.google.com; form-action 'self' https://accounts.google.com https://ihidmclkugsmoygegipp.supabase.co;",
           }
         ],
       },

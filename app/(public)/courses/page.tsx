@@ -14,9 +14,12 @@ export const metadata = generatePageMetadata({
 
 // Fallback courses database
 const fallbackCourses = [
-  { title: 'CLAT Mastery Program', slug: 'clat-coaching-delhi', description: 'Our flagship comprehensive law entrance mentorship program. Designed specifically for CLAT and AILET, this module covers logical reasoning, legal aptitude, English vocabulary, quantitative techniques, and current affairs.', fee: 50000, duration: '1 Year', category: 'CLAT' },
-  { title: 'IPMAT Excellence Program', slug: 'best-ipmat-coaching-delhi', description: 'Integrated Program in Management Aptitude Test prep module. Designed for IIM Indore, Rohtak, and Ranchi. Rigorous preparation on Quant, Verbal, and intensive interview preparation (WAT/PI).', fee: 80000, duration: '1 Year', category: 'IPMAT' },
-  { title: 'CUET Foundation Course', slug: 'best-cuet-coaching-delhi', description: 'Targeted subject-matter and general test coaching for Central University Entrance Test (CUET) covering Domain-specific subjects and General Aptitude.', fee: 30000, duration: '6 Months', category: 'CUET' },
+  { title: 'CLAT Mentorship Program', slug: 'clat-coaching-delhi', description: 'Our flagship comprehensive law entrance mentorship program. Designed specifically for CLAT and AILET, this module covers logical reasoning, legal aptitude, English vocabulary, quantitative techniques, and current affairs.', fee: 50000, duration: '1 Year', category: 'CLAT' },
+  { title: 'Undergraduate Entrance Foundation', slug: 'undergraduate-entrance-coaching-delhi', description: 'Long-form comprehensive preparation course for early starters. Multi-entrance syllabus bridging CLAT legal frameworks, IPMAT high-level aptitude, and CUET domain parameters over 24 months.', fee: 120000, duration: '2 Years', category: 'Foundation' },
+  { title: 'CLAT Target Batch', slug: 'clat-mentorship-delhi', description: 'Fast-paced, highly intensive mock-oriented module designed for students who want a targeted sprint for the upcoming CLAT exam. Daily sectionals, rigorous speed reading exercises, and time-management protocols.', fee: 50000, duration: '6 Months', category: 'CLAT' },
+  { title: 'CUET Crash Course', slug: 'cuet-coaching-central-delhi', description: 'Accelerated last-mile intensive revision prep for CUET. Focuses on high-yield topic revision, critical formula sheets, rapid language comprehension skills, and past question paper trends.', fee: 27500, duration: '3 Months', category: 'CUET' },
+  { title: 'IPMAT IIM Integrated Prep', slug: 'best-ipmat-coaching-delhi', description: 'Integrated Program in Management Aptitude Test prep module. Designed for IIM Indore, Rohtak, and Ranchi. Rigorous preparation on Quant, Verbal, and intensive interview preparation (WAT/PI).', fee: 80000, duration: '1 Year', category: 'IPMAT' },
+  { title: 'CUET UG Success Batch', slug: 'best-cuet-coaching-delhi', description: 'Targeted subject-matter and general test coaching for Central University Entrance Test (CUET) covering Domain-specific subjects and General Aptitude.', fee: 30000, duration: '6 Months', category: 'CUET' },
 ];
 
 export default async function CoursesPage() {
