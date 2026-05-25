@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, GraduationCap } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
   return (
@@ -10,8 +11,14 @@ export default function NotFound() {
 
       <div className="max-w-md w-full space-y-6 relative">
         {/* Brand logo cap */}
-        <div className="bg-primary text-background p-4 rounded-2xl inline-flex items-center justify-center shadow-soft">
-          <GraduationCap className="h-10 w-10 text-accent animate-bounce" />
+        <div className="bg-white p-3.5 rounded-2xl inline-flex items-center justify-center shadow-md border border-slate-100">
+          <Image
+            src="/logo.png"
+            alt="CT CAMPUS Logo"
+            width={160}
+            height={45}
+            className="h-10 w-auto object-contain"
+          />
         </div>
 
         <div className="space-y-2">

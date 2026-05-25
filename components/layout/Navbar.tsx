@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Phone, ShieldCheck, GraduationCap, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X, Phone, ShieldCheck, ArrowRight } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -51,18 +52,15 @@ export default function Navbar() {
       >
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter h-20 flex items-center justify-between">
           {/* LOGO / BRAND */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="bg-primary text-surface-white p-2 rounded flex items-center justify-center transition-transform group-hover:scale-105">
-              <GraduationCap className="h-6 w-6 text-focus-teal" />
-            </div>
-            <div>
-              <span className="font-manrope text-xl font-extrabold tracking-tight text-primary block">
-                CT CAMPUS
-              </span>
-              <span className="font-worksans text-[10px] uppercase font-semibold tracking-widest text-secondary block -mt-1">
-                Elite Mentorship
-              </span>
-            </div>
+          <Link href="/" className="flex items-center gap-2 group">
+            <Image
+              src="/logo.png"
+              alt="CT CAMPUS Logo"
+              width={160}
+              height={45}
+              className="h-10 w-auto object-contain transition-transform group-hover:scale-102"
+              priority
+            />
           </Link>
 
           {/* DESKTOP NAV */}

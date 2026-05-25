@@ -4,7 +4,8 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
-import { GraduationCap, ShieldAlert, LogIn, Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { ShieldAlert, LogIn, Loader2 } from 'lucide-react';
 
 function AdminLoginForm() {
   const [email, setEmail] = useState('');
@@ -137,17 +138,15 @@ export default function AdminLoginPage() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(232,137,106,0.1),transparent_70%)] pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md space-y-4 relative text-center">
-        <Link href="/" className="inline-flex items-center gap-2 group justify-center">
-          <div className="bg-white/10 text-white p-2.5 rounded-xl flex items-center justify-center">
-            <GraduationCap className="h-6 w-6 text-accent" />
-          </div>
-          <div>
-            <span className="font-display text-xl font-bold tracking-tight text-white block">
-              CT CAMPUS
-            </span>
-            <span className="text-[10px] uppercase font-bold tracking-wider text-accent block">
-              Administration Guard
-            </span>
+        <Link href="/" className="inline-block group">
+          <div className="bg-white p-3.5 rounded-2xl flex items-center justify-center shadow-lg border border-slate-800">
+            <Image
+              src="/logo.png"
+              alt="CT CAMPUS Logo"
+              width={160}
+              height={45}
+              className="h-10 w-auto object-contain"
+            />
           </div>
         </Link>
         <h2 className="font-display text-3xl font-extrabold text-white tracking-tight pt-2">

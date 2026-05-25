@@ -4,7 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { GraduationCap, LogOut, Layout, BookOpen } from 'lucide-react';
+import Image from 'next/image';
+import { LogOut, BookOpen } from 'lucide-react';
 
 export default function DashboardLayout({
   children,
@@ -25,17 +26,15 @@ export default function DashboardLayout({
       {/* Student Portal Header */}
       <header className="bg-primary text-background border-b border-primary/20 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/dashboard" className="flex items-center gap-2 group">
-            <div className="bg-background text-primary p-1.5 rounded-lg flex items-center justify-center">
-              <GraduationCap className="h-5 w-5 text-accent" />
-            </div>
-            <div>
-              <span className="font-display font-bold tracking-tight text-background block text-sm sm:text-base">
-                CT CAMPUS
-              </span>
-              <span className="text-[8px] uppercase font-bold tracking-wider text-accent block -mt-1">
-                Student Portal
-              </span>
+          <Link href="/dashboard" className="block group">
+            <div className="bg-surface-white px-2.5 py-1.5 rounded-lg flex items-center justify-center shadow-sm">
+              <Image
+                src="/logo.png"
+                alt="CT CAMPUS Logo"
+                width={120}
+                height={32}
+                className="h-6 w-auto object-contain"
+              />
             </div>
           </Link>
 

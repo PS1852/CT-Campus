@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { 
   UserCheck, 
@@ -106,6 +107,15 @@ export default function AdminStudentsPage() {
           <p className="text-sm text-primary/60 mt-1">
             Audit manual UPI QR bank logs, examine marksheet documents link, and trigger student role access validations.
           </p>
+        </div>
+        <div className="bg-surface-white p-2.5 rounded-lg border border-border-light shadow-sm flex items-center justify-center shrink-0">
+          <Image
+            src="/logo.png"
+            alt="CT CAMPUS Logo"
+            width={140}
+            height={38}
+            className="h-8 w-auto object-contain"
+          />
         </div>
       </header>
 

@@ -528,6 +528,16 @@ Thank you.`);
 export default function FeesPage() {
   return (
     <div className="py-20 bg-background flex flex-col items-center">
+      <div className="flex justify-center mb-8">
+        <Image
+          src="/logo.png"
+          alt="CT CAMPUS Logo"
+          width={200}
+          height={56}
+          className="h-14 w-auto object-contain"
+          priority
+        />
+      </div>
       <Suspense fallback={
         <div className="w-full max-w-[800px] py-20 text-center flex flex-col items-center justify-center">
           <Loader2 className="h-10 w-10 animate-spin text-focus-teal mb-4" />

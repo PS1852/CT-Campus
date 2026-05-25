@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { createClient } from '@/lib/supabase/server';
 import { CheckCircle2, UserCheck, CreditCard, FileText, CalendarRange, Lock, PhoneCall, Mail } from 'lucide-react';
@@ -33,6 +34,16 @@ export default async function AdmissionsPage() {
     <div className="py-20 bg-background font-worksans text-primary flex flex-col items-center">
       {/* Header Info */}
       <header className="w-full max-w-[800px] text-center px-margin-mobile md:px-0 mb-12 space-y-4">
+        <div className="flex justify-center mb-6">
+          <Image
+            src="/logo.png"
+            alt="CT CAMPUS Logo"
+            width={200}
+            height={56}
+            className="h-14 w-auto object-contain"
+            priority
+          />
+        </div>
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-focus-teal/10 text-focus-teal font-semibold text-xs uppercase tracking-wider">
           Student Enrollment
         </div>

@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { GraduationCap, UserPlus, AlertCircle, Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { UserPlus, AlertCircle, Loader2 } from 'lucide-react';
 
 export default function SignupPage() {
   const [fullName, setFullName] = useState('');
@@ -84,8 +85,14 @@ export default function SignupPage() {
       <div className="min-h-screen bg-surface flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 text-left relative overflow-hidden">
         <div className="absolute inset-0 glow-gradient opacity-40 pointer-events-none" />
         <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white border border-border shadow-soft rounded-2xl p-8 text-center space-y-4">
-          <div className="bg-primary text-background p-3 rounded-full inline-flex">
-            <GraduationCap className="h-8 w-8 text-accent" />
+          <div className="bg-white p-3.5 rounded-2xl inline-flex items-center justify-center shadow-md border border-slate-100">
+            <Image
+              src="/logo.png"
+              alt="CT CAMPUS Logo"
+              width={160}
+              height={45}
+              className="h-10 w-auto object-contain"
+            />
           </div>
           <h2 className="font-display text-2xl font-bold text-primary">Verify Email</h2>
           <p className="text-sm text-muted">
@@ -106,14 +113,15 @@ export default function SignupPage() {
       <div className="absolute inset-0 glow-gradient opacity-40 pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md space-y-4 relative text-center">
-        <Link href="/" className="inline-flex items-center gap-2 group">
-          <div className="bg-primary text-background p-2 rounded-lg flex items-center justify-center">
-            <GraduationCap className="h-6 w-6 text-accent" />
-          </div>
-          <div>
-            <span className="font-display text-xl font-bold tracking-tight text-primary block">
-              CT CAMPUS
-            </span>
+        <Link href="/" className="inline-block group mx-auto">
+          <div className="bg-white p-3.5 rounded-2xl flex items-center justify-center shadow-md border border-slate-100">
+            <Image
+              src="/logo.png"
+              alt="CT CAMPUS Logo"
+              width={160}
+              height={45}
+              className="h-10 w-auto object-contain"
+            />
           </div>
         </Link>
         <h2 className="font-display text-3xl font-bold text-primary tracking-tight">

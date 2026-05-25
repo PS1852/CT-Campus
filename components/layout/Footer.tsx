@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Phone, Mail, MapPin, GraduationCap, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,18 +14,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="bg-surface-white text-primary p-2 rounded flex items-center justify-center">
-                <GraduationCap className="h-6 w-6 text-focus-teal" />
-              </div>
-              <div>
-                <span className="font-manrope text-xl font-extrabold tracking-tight text-surface-white block">
-                  CT CAMPUS
-                </span>
-                <span className="font-worksans text-[10px] uppercase font-semibold tracking-widest text-focus-teal block -mt-1">
-                  Elite Mentorship
-                </span>
-              </div>
+            <div className="bg-surface-white p-3 rounded-lg shadow-sm max-w-[180px] flex items-center justify-center">
+              <Image
+                src="/logo.png"
+                alt="CT CAMPUS Logo"
+                width={150}
+                height={42}
+                className="h-9 w-auto object-contain"
+              />
             </div>
             <p className="text-sm text-surface-container/70 leading-relaxed">
               Achieve your dreams with us. Expert strategic mentorship for top tier law and management entrance exams CLAT, IPMAT, and CUET.

@@ -4,8 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import Image from 'next/image';
 import {
-  GraduationCap,
   LayoutDashboard,
   BookOpen,
   FileText,
@@ -43,18 +43,16 @@ export default function AdminSidebar() {
   return (
     <aside className="w-64 bg-primary text-background border-r border-primary/20 flex flex-col justify-between h-screen sticky top-0 shrink-0">
       {/* Brand logo header */}
-      <div className="p-6 border-b border-background/10 space-y-4">
-        <Link href="/admin" className="flex items-center gap-2">
-          <div className="bg-background text-primary p-2 rounded-lg flex items-center justify-center">
-            <GraduationCap className="h-6 w-6 text-accent" />
-          </div>
-          <div>
-            <span className="font-display text-lg font-bold tracking-tight text-background block">
-              CT CAMPUS
-            </span>
-            <span className="text-[9px] uppercase font-bold tracking-wider text-accent block -mt-1">
-              Admin Board
-            </span>
+      <div className="p-6 border-b border-background/10">
+        <Link href="/admin" className="block">
+          <div className="bg-surface-white p-2.5 rounded-lg flex items-center justify-center shadow-sm w-full">
+            <Image
+              src="/logo.png"
+              alt="CT CAMPUS Logo"
+              width={140}
+              height={38}
+              className="h-8 w-auto object-contain"
+            />
           </div>
         </Link>
       </div>
