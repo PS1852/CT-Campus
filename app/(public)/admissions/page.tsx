@@ -13,9 +13,9 @@ export const metadata = generatePageMetadata({
 
 // Fallback courses list
 const fallbackCourses = [
-  { id: '1', title: 'CLAT Mastery Program', slug: 'clat-coaching-delhi', category: 'CLAT' },
-  { id: '2', title: 'IPMAT Excellence Program', slug: 'best-ipmat-coaching-delhi', category: 'IPMAT' },
-  { id: '3', title: 'CUET Foundation Course', slug: 'best-cuet-coaching-delhi', category: 'CUET' },
+  { id: 'f1a82736-b0d6-4667-880a-bc3e9b7c322a', title: 'CLAT Mastery Program', slug: 'clat-coaching-delhi', category: 'CLAT' },
+  { id: 'e8cec99d-b29c-4656-95f3-03d75aa4c39c', title: 'IPMAT Excellence Program', slug: 'best-ipmat-coaching-delhi', category: 'IPMAT' },
+  { id: '92261f6f-82d1-4c3c-b9a4-1abf24f0a9ab', title: 'CUET Foundation Course', slug: 'best-cuet-coaching-delhi', category: 'CUET' },
 ];
 
 export default async function AdmissionsPage() {
