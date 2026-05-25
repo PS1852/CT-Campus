@@ -1,13 +1,12 @@
 import React from 'react';
 import { createClient } from '@/lib/supabase/server';
+import AdminAdmissionsLedger from '@/components/admin/AdminAdmissionsLedger';
+import { getAdminAdmissions, type AdminAdmission } from '@/lib/admin/admissions';
 import {
   Inbox,
   UserCheck,
   TrendingUp,
-  FileText,
   AlertCircle,
-  Clock,
-  CheckCircle2,
   Calendar
 } from 'lucide-react';
 import Link from 'next/link';
@@ -40,6 +39,15 @@ export default async function AdminDashboardPage() {
     .select('*')
     .order('created_at', { ascending: false })
     .limit(5);
+
+  let recentAdmissions: AdminAdmission[] = [];
+  let admissionsError: string | null = null;
+
+  try {
+    recentAdmissions = await getAdminAdmissions(5);
+  } catch (err: any) {
+    admissionsError = err.message || 'Failed to load admissions ledger.';
+  }
 
   const kpis = [
     { title: 'Pending Queries', value: pendingInquiriesCount ?? 0, icon: Inbox, color: 'text-amber-500 bg-amber-50 border-amber-200' },
@@ -85,6 +93,33 @@ export default async function AdminDashboardPage() {
             </div>
           );
         })}
+      </div>
+
+      {/* Recent Admissions Ledger */}
+      <div className="bg-white border border-border rounded-2xl shadow-soft p-6 sm:p-8 space-y-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-border pb-4">
+          <div>
+            <h3 className="font-display text-xl font-bold text-primary">
+              Recent Admissions Applications
+            </h3>
+            <p className="text-xs text-muted">
+              Review student details and approve or reject applications directly from the dashboard.
+            </p>
+          </div>
+          <Link href="/admin/students" className="text-xs font-bold text-accent hover:text-accent/80 flex items-center gap-1">
+            View Admissions Log
+            <span>→</span>
+          </Link>
+        </div>
+
+        {admissionsError ? (
+          <div className="flex items-start gap-2 bg-error/5 text-error p-4 rounded text-xs border border-error/15">
+            <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
+            <span>{admissionsError}</span>
+          </div>
+        ) : (
+          <AdminAdmissionsLedger initialAdmissions={recentAdmissions} compact />
+        )}
       </div>
 
       {/* Recent Inquiries Inbox */}
