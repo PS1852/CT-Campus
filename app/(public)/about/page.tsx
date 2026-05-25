@@ -1,6 +1,6 @@
 import React from 'react';
 import { generatePageMetadata } from '@/lib/seo/metadata';
-import { CheckCircle2, Award, Clock, Users, MapPin, Milestone } from 'lucide-react';
+import { CheckCircle2, Award, Clock, Users, Milestone, Landmark } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata = generatePageMetadata({
@@ -11,104 +11,104 @@ export const metadata = generatePageMetadata({
 
 export default function AboutPage() {
   return (
-    <div className="py-12 sm:py-20 bg-background text-left">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-20 bg-background font-worksans text-primary flex flex-col items-center">
+      <div className="w-full max-w-container-max px-margin-mobile md:px-gutter space-y-20">
         
-        {/* Section 1: Hero Pitch */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+        {/* Pitch Hero Section */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left">
           <div className="lg:col-span-7 space-y-6">
-            <span className="text-xs font-bold text-accent uppercase tracking-wider bg-surface border border-accent/20 px-3 py-1 rounded-full">
-              Our Legacy & Core Values
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-focus-teal/10 text-focus-teal font-semibold text-xs uppercase tracking-wider">
+              Our Legacy & Pedagogy
             </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-bold text-primary leading-tight">
-              Pioneering Personal Mentorship Over Mass Classes
+            <h1 className="font-manrope text-3xl md:text-5xl font-extrabold text-primary leading-tight tracking-tight">
+              Personalized Mentorship Over Crowd Lectures
             </h1>
-            <p className="text-muted text-base sm:text-lg leading-relaxed">
-              At **CT CAMPUS**, we recognized a glaring flaw in the Indian competitive exam coaching sector: students were treated as roll numbers in crowded lecture halls of 150+. Direct feedback was non-existent.
+            <p className="text-sm md:text-base text-primary/75 leading-relaxed">
+              At **CT CAMPUS**, we recognized a persistent systemic issue in undergraduate competitive coaching: student learning was normalized across giant crowded batch sizes of 100+. Feedback cycles and strategic mock calibrations were non-existent.
             </p>
-            <p className="text-sm sm:text-base text-muted leading-relaxed">
-              Established in the competitive education hub of Karol Bagh, New Delhi, we set out with a simple mission: **restrict our batch sizes to 30 candidates and assign every student a personal coach (NLU/IIM alumni)**. This ensures custom mock schedules, daily query settlement, and continuous mental health counseling.
+            <p className="text-sm md:text-base text-primary/60 leading-relaxed">
+              Established in New Delhi’s premier education hub of Karol Bagh, we committed to a radical learning blueprint: **limit all batch cohorts strictly to 30 candidates and allocate every aspirant an individual strategic NLU or IIM alumni coach**.
             </p>
           </div>
           
-          <div className="lg:col-span-5 bg-surface border border-border p-8 rounded-2xl space-y-6">
-            <h3 className="font-display text-xl font-bold text-primary border-b border-border pb-2">
-              Institute Pillars
+          <div className="lg:col-span-5 bg-surface-white border border-border-light p-8 rounded-lg space-y-6 shadow-sm">
+            <h3 className="font-manrope text-xl font-bold text-primary border-b border-border-light pb-4">
+              Institutional Pillars
             </h3>
             {[
-              { icon: Award, title: 'Expert Alumni Board', desc: 'Syllabus designed and audited directly by top rankers from National Law Universities and IIM directors.' },
-              { icon: Clock, title: 'Flexible Timing Batches', desc: 'Tailored shifts for school-going Class 11/12 students, dropper sprinters, and weekend tracks.' },
-              { icon: Users, title: 'Personal Quiet Cabins', desc: 'Enjoy full library access with individualized air-conditioned, sound-damped study cabins.' },
+              { icon: Award, title: 'Alumni Core Board', desc: 'Preparation syllabus curated and audited by NLU rankers and expert academic directors.' },
+              { icon: Clock, title: 'Flexible Timing Batches', desc: 'Schedules adapted for high school students, morning dropouts, and comprehensive weekend tracks.' },
+              { icon: Users, title: 'Silent Library Cabins', desc: 'Personal air-conditioned sound-damped study cabins for rigorous focus sessions.' },
             ].map((pillar, idx) => {
               const Icon = pillar.icon;
               return (
                 <div key={idx} className="flex gap-4">
-                  <div className="bg-primary/5 p-2 rounded-lg text-accent shrink-0">
+                  <div className="bg-focus-teal/10 p-2.5 rounded text-focus-teal shrink-0 h-10 w-10 flex items-center justify-center">
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-primary text-sm sm:text-base">{pillar.title}</h4>
-                    <p className="text-xs text-muted leading-relaxed">{pillar.desc}</p>
+                    <h4 className="font-manrope font-bold text-primary text-sm sm:text-base">{pillar.title}</h4>
+                    <p className="text-xs text-primary/60 leading-relaxed mt-0.5">{pillar.desc}</p>
                   </div>
                 </div>
               );
             })}
           </div>
-        </div>
-
-        {/* Section 2: Directors Message */}
-        <div className="bg-surface border border-border rounded-3xl p-8 sm:p-12 mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        </section>
+        
+        {/* Directors Panel Quote Section */}
+        <section className="bg-primary text-surface-white rounded-lg p-8 md:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-left">
           <div className="lg:col-span-8 space-y-4">
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-primary">
-              "We Prepare You for the Test and the Career"
+            <h2 className="font-manrope text-2xl sm:text-3xl font-bold text-surface-white">
+              "We Prepare You for the Test and the Career Ahead"
             </h2>
-            <blockquote className="text-sm sm:text-base text-muted italic border-l-4 border-accent pl-4 py-1 leading-relaxed">
-              "Competitive prep is a marathon, not a sprint. While we teach you logical shortcuts and legal rules, our primary focus is helping you build the reading endurance and analytical vocabulary required to thrive in law, management, and elite universities."
+            <blockquote className="text-sm md:text-base text-surface-container/70 italic border-l-4 border-focus-teal pl-4 py-1 leading-relaxed">
+              "Competitive exam preparation is a marathon. While we equip you with shortcut formulas and logic modules, our core priority is building the critical vocabulary and comprehension rigor needed to thrive in top-tier national institutions."
             </blockquote>
-            <p className="text-xs text-muted font-semibold uppercase tracking-wider pt-2">
-              — Board of Directors, CT CAMPUS
+            <p className="text-xs text-focus-teal font-bold uppercase tracking-widest pt-2">
+              — BOARD OF DIRECTORS, CT CAMPUS
             </p>
           </div>
           <div className="lg:col-span-4 flex justify-center">
-            <div className="border border-border/80 bg-white p-6 rounded-2xl text-center space-y-3 shadow-sm w-full">
-              <div className="bg-primary/5 p-3 rounded-full inline-flex text-accent">
+            <div className="border border-border-light/10 bg-primary-container p-6 rounded-lg text-center space-y-4 shadow-sm w-full">
+              <div className="bg-focus-teal/20 p-3.5 rounded-full inline-flex text-focus-teal">
                 <Milestone className="h-8 w-8" />
               </div>
-              <h4 className="font-bold text-primary">Need Counselling?</h4>
-              <p className="text-xs text-muted">Arrange a personal mock counseling diagnostic run at our campus.</p>
-              <Link href="/contact" className="btn-primary w-full text-xs min-h-[40px] flex items-center justify-center">
+              <h4 className="font-manrope font-bold text-surface-white">Need Counselling?</h4>
+              <p className="text-xs text-surface-container/60 leading-relaxed">Schedule a free strategizing session at our campus desks.</p>
+              <Link 
+                href="/contact" 
+                className="w-full bg-focus-teal hover:bg-secondary text-surface-white font-manrope font-bold py-2.5 rounded transition-colors text-xs flex items-center justify-center gap-1.5 focus-ring"
+              >
                 Book Campus Visit
               </Link>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Section 3: Value Addons Checklist */}
-        <div className="space-y-8">
-          <div className="text-center md:text-left space-y-2">
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-primary">
-              Why Aspirants Trust CT CAMPUS
-            </h2>
-            <p className="text-sm text-muted">
-              We provide the most robust undergraduate entrance preparation ecosystem in Delhi.
-            </p>
+        {/* Why Trust Checklists Grid */}
+        <section className="space-y-10 text-left">
+          <div className="space-y-3">
+            <h2 className="font-manrope text-3xl font-bold text-primary">Why Aspirants Trust CT CAMPUS</h2>
+            <p className="text-sm text-primary/60">We provide the most robust and high-trust academic ecosystem in Delhi.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              '1-on-1 Personal Strategy Mentor (NLU/IIM alumni)',
-              'Restricted batch limits (Strictly 30 seats per cohort)',
-              'Interactive smartboards with modern digital portal logs',
-              'Couriers of printed comprehensive topic modules',
-              'Silent study library cabins (A/C and sound-damped)',
-              'Weekly parent reporting dashboards and video calls syncs',
+              '1-on-1 strategy diagnostic mentor assignment (NLU/IIM alumni)',
+              'Restricted batch limits (Strictly 30 seats per cohort limit)',
+              'Interactive classroom board channels with digital summaries',
+              'Syllabus study materials packages dispatched to doorstep',
+              'AC study rooms with silent customized library cabins',
+              'Parent reporting loops and regular mock review audits',
             ].map((val, idx) => (
-              <div key={idx} className="flex gap-3 bg-white border border-border p-4 rounded-xl shadow-sm">
-                <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
-                <span className="text-sm text-primary/80 font-medium">{val}</span>
+              <div key={idx} className="flex gap-3 bg-surface-white border border-border-light p-5 rounded hover:ambient-shadow transition-shadow">
+                <CheckCircle2 className="h-5 w-5 text-success shrink-0 mt-0.5" />
+                <span className="text-sm text-primary/70 font-semibold leading-relaxed">{val}</span>
               </div>
             ))}
           </div>
-        </div>
+        </section>
+
       </div>
     </div>
   );

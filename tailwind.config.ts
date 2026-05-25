@@ -9,32 +9,55 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        surface: "var(--surface)",
+        background: "#F1F1F1", // level 0 canvas background
+        foreground: "#1A1C1C", // on-surface text
         primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--background)",
+          DEFAULT: "#0A1422", // deep navy anchor
+          container: "#1F2937", // primary container
         },
-        accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--primary)",
+        secondary: {
+          DEFAULT: "#006B56",
+          container: "#65F7D0",
         },
-        muted: "var(--muted)",
-        border: "var(--border)",
-        success: "var(--success)",
-        error: "var(--error)",
+        success: {
+          DEFAULT: "#00AD80", // success teal
+        },
+        focus: {
+          teal: "#30CFAA", // vibrant teal focus/action color
+        },
+        surface: {
+          DEFAULT: "#F9F9F9",
+          white: "#FFFFFF", // Level 1 surface card background
+          dim: "#DADADA",
+          container: "#EEEEEE",
+          high: "#E8E8E8",
+        },
+        border: {
+          light: "#E5E7EB", // Level 1 surface border
+        },
       },
       fontFamily: {
-        display: ["var(--font-poppins)", "sans-serif"],
-        body: ["var(--font-inter)", "sans-serif"],
+        manrope: ["Manrope", "sans-serif"],
+        worksans: ["Work Sans", "sans-serif"],
       },
-      boxShadow: {
-        soft: "0 4px 20px -2px rgba(26, 26, 46, 0.04), 0 2px 8px -1px rgba(26, 26, 46, 0.02)",
-        cardHover: "0 12px 30px -4px rgba(26, 26, 46, 0.08), 0 4px 12px -2px rgba(26, 26, 46, 0.04)",
+      borderRadius: {
+        sm: "0.125rem", // 2px soft radius
+        DEFAULT: "0.25rem", // 4px soft radius
+        md: "0.375rem",
+        lg: "0.5rem", // 8px large containers
+        xl: "0.75rem",
+        full: "9999px",
+      },
+      spacing: {
+        base: "8px",
+        gutter: "24px",
+        "margin-mobile": "16px",
+        "section-gap": "64px",
+        "container-max": "1280px",
       },
     },
   },
   plugins: [],
 };
 export default config;
+

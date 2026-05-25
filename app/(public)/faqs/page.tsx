@@ -1,9 +1,8 @@
 import React from 'react';
 import { createClient } from '@/lib/supabase/server';
-import { generatePageMetadata, getFaqPageSchema, getBreadcrumbSchema } from '@/lib/seo/metadata';
-import JsonLd from '@/components/shared/JsonLd';
+import { generatePageMetadata } from '@/lib/seo/metadata';
 import Link from 'next/link';
-import { HelpCircle, ChevronRight, MessageCircle } from 'lucide-react';
+import { HelpCircle, MessageSquare, ChevronRight, HelpCircle as AskIcon } from 'lucide-react';
 
 export const metadata = generatePageMetadata({
   title: 'Seeded FAQ Bank & Course Queries | CT CAMPUS',
@@ -29,94 +28,78 @@ export default async function FaqsPage() {
 
   const faqs = dbFaqs && dbFaqs.length > 0 ? dbFaqs : fallbackFaqs;
 
-  const faqSchema = getFaqPageSchema(
-    faqs.map(faq => ({ question: faq.question, answer: faq.answer }))
-  );
-
-  const breadcrumbsSchema = getBreadcrumbSchema([
-    { name: 'Home', item: '/' },
-    { name: 'FAQs', item: '/faqs' },
-  ]);
-
   return (
-    <>
-      <JsonLd schema={faqSchema} />
-      <JsonLd schema={breadcrumbsSchema} />
-
-      <div className="py-12 sm:py-20 bg-background text-left">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Header */}
-          <div className="space-y-4 mb-16 text-center">
-            <span className="text-xs font-bold text-accent uppercase tracking-wider bg-surface border border-accent/20 px-3 py-1 rounded-full">
-              Common Questions
-            </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-bold text-primary">
-              Seeded FAQ Knowledge Base
-            </h1>
-            <p className="text-muted text-base max-w-2xl mx-auto leading-relaxed">
-              Find transparent answers regarding eligibility criteria, batch shifts, study cabins, and scholarship brackets compiled by our administrators.
-            </p>
+    <div className="py-20 bg-background font-worksans text-primary flex flex-col items-center">
+      <div className="w-full max-w-[800px] px-margin-mobile md:px-0">
+        
+        {/* Header Section */}
+        <header className="text-center space-y-4 mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-focus-teal/10 text-focus-teal font-semibold text-xs uppercase tracking-wider">
+            Preparation FAQs
           </div>
+          <h1 className="font-manrope text-3xl md:text-5xl font-extrabold text-primary leading-tight tracking-tight">
+            Academic FAQ Bank
+          </h1>
+          <p className="text-sm md:text-base text-primary/70 leading-relaxed max-w-xl mx-auto">
+            Find answers to standard enrollment procedures, installment patterns, batches, study library setups, and eligibility parameters.
+          </p>
+        </header>
 
-          {/* Accordion List */}
-          <div className="space-y-4">
-            {faqs.map((faq: any, idx: number) => (
-              <details
-                key={idx}
-                className="group border border-border bg-white rounded-xl p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer"
-              >
-                <summary className="flex items-center justify-between gap-4 font-semibold text-primary text-base sm:text-lg list-none">
-                  <div className="flex items-center gap-3">
-                    <HelpCircle className="h-5 w-5 text-accent shrink-0" />
-                    <span>{faq.question}</span>
-                  </div>
-                  <span className="transition-transform group-open:rotate-180 text-accent font-bold shrink-0">
-                    ▼
-                  </span>
-                </summary>
-                
-                <div className="mt-4 text-xs sm:text-sm text-muted leading-relaxed border-t border-border/50 pt-4 space-y-2">
-                  <p>{faq.answer}</p>
-                  <div className="pt-2">
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-accent bg-surface border border-accent/10 px-2 py-0.5 rounded-full">
-                      Category: {faq.category}
-                    </span>
-                  </div>
+        {/* FAQs Accordion Stack */}
+        <main className="space-y-4">
+          {faqs.map((faq: any, idx: number) => (
+            <details
+              key={idx}
+              className="group border border-border-light bg-surface-white rounded hover:ambient-shadow transition-shadow overflow-hidden [&_summary::-webkit-details-marker]:hidden cursor-pointer"
+            >
+              <summary className="flex items-center justify-between gap-4 p-6 font-manrope font-bold text-base md:text-lg text-primary select-none focus:outline-none">
+                <div className="flex items-center gap-3">
+                  <HelpCircle className="h-5.5 w-5.5 text-focus-teal shrink-0" />
+                  <span>{faq.question}</span>
                 </div>
-              </details>
-            ))}
-          </div>
+                <span className="transition-transform group-open:rotate-180 text-focus-teal shrink-0">
+                  ▼
+                </span>
+              </summary>
+              
+              <div className="px-6 pb-6 text-sm text-primary/60 border-t border-border-light/50 pt-4 leading-relaxed font-semibold">
+                <p>{faq.answer}</p>
+                <div className="pt-4 flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-focus-teal uppercase bg-focus-teal/10 px-2.5 py-1 rounded-full">
+                    {faq.category}
+                  </span>
+                </div>
+              </div>
+            </details>
+          ))}
+        </main>
 
-          {/* Value block */}
-          <div className="mt-16 bg-surface border border-border rounded-2xl p-8 sm:p-12 text-center space-y-6">
-            <h3 className="font-display text-2xl font-bold text-primary">
-              Have an Unanswered Question?
-            </h3>
-            <p className="text-sm text-muted max-w-lg mx-auto">
-              Our directors are active on WhatsApp and campus desks to clear your entrance, college, and syllabus doubts. Talk to us for a direct diagnosis session.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="https://wa.me/918800833665?text=Hi%20CT%20Campus%20Mentor,%20I'm%20having%20some%20doubts%20regarding%20the%20entrance%20batches."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="h-5 w-5 fill-current" />
-                WhatsApp Direct Mentorship
-              </a>
-              <Link
-                href="/contact"
-                className="btn-secondary flex items-center justify-center bg-white"
-              >
-                View Contact Directory
-              </Link>
-            </div>
+        {/* Floating Support Contact Card */}
+        <section className="mt-16 bg-primary text-surface-white rounded-lg p-8 md:p-12 text-center space-y-6">
+          <h3 className="font-manrope text-2xl font-bold">Have Unresolved Questions?</h3>
+          <p className="text-sm text-surface-container/60 max-w-md mx-auto leading-relaxed">
+            Our strategic mentors are active to clear your batch alignments, timing shifts, hostel bookings, or subject domain selections directly.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <a
+              href="https://wa.me/918800833665?text=Hi%20CT%20Campus%20Mentor,%20I'm%20having%20some%20doubts%20regarding%20the%20entrance%20batches."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto bg-focus-teal hover:bg-secondary text-surface-white font-manrope font-bold py-3.5 px-6 rounded transition-colors flex items-center justify-center gap-2 focus-ring"
+            >
+              <MessageSquare className="h-4.5 w-4.5 fill-current" />
+              WhatsApp Mentorship Desk
+            </a>
+            <Link
+              href="/contact"
+              className="w-full sm:w-auto border border-surface-white/20 hover:border-surface-white text-surface-white font-manrope font-bold py-3.5 px-6 rounded transition-colors flex items-center justify-center gap-2 focus-ring"
+            >
+              Contact Directory
+            </Link>
           </div>
+        </section>
 
-        </div>
       </div>
-    </>
+    </div>
   );
 }

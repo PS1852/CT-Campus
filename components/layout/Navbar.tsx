@@ -3,15 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Phone, Shield, GraduationCap, ArrowRight } from 'lucide-react';
+import { Menu, X, Phone, ShieldCheck, GraduationCap, ArrowRight } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
-  { name: 'Courses & Fees', href: '/courses' },
+  { name: 'Courses', href: '/courses' },
   { name: 'Admissions', href: '/admissions' },
-  { name: 'Results', href: '/results' },
-  { name: 'Blog', href: '/blog' },
   { name: 'FAQs', href: '/faqs' },
   { name: 'Contact', href: '/contact' },
 ];
@@ -29,7 +27,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -48,22 +45,22 @@ export default function Navbar() {
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-300 ${
           scrolled
-            ? 'bg-background/90 backdrop-blur-md shadow-soft border-b border-border'
-            : 'bg-transparent'
+            ? 'bg-surface-white/95 backdrop-blur-md shadow-sm border-b border-border-light'
+            : 'bg-surface-white border-b border-border-light shadow-sm'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          {/* LOGO */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-primary text-background p-2 rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
-              <GraduationCap className="h-6 w-6 text-accent" />
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter h-20 flex items-center justify-between">
+          {/* LOGO / BRAND */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="bg-primary text-surface-white p-2 rounded flex items-center justify-center transition-transform group-hover:scale-105">
+              <GraduationCap className="h-6 w-6 text-focus-teal" />
             </div>
             <div>
-              <span className="font-display text-xl font-bold tracking-tight text-primary block">
+              <span className="font-manrope text-xl font-extrabold tracking-tight text-primary block">
                 CT CAMPUS
               </span>
-              <span className="text-[10px] uppercase font-semibold tracking-wider text-muted block -mt-1">
-                Academic Mentorship
+              <span className="font-worksans text-[10px] uppercase font-semibold tracking-widest text-secondary block -mt-1">
+                Elite Mentorship
               </span>
             </div>
           </Link>
@@ -76,10 +73,10 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm font-medium tracking-wide transition-colors ${
+                  className={`font-worksans text-sm font-semibold tracking-wide transition-all py-2 border-b-2 ${
                     isActive
-                      ? 'text-accent font-semibold border-b-2 border-accent pb-1'
-                      : 'text-primary/80 hover:text-accent'
+                      ? 'text-focus-teal border-focus-teal'
+                      : 'text-primary/70 hover:text-focus-teal border-transparent'
                   }`}
                 >
                   {link.name}
@@ -88,25 +85,28 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* DESKTOP CTA */}
+          {/* DESKTOP ACTIONS */}
           <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/login"
-              className="text-sm font-medium text-primary hover:text-accent transition-colors flex items-center gap-1"
+              className="font-worksans text-sm font-semibold text-primary hover:text-focus-teal transition-colors flex items-center gap-1.5 px-3 py-2 rounded focus-ring"
             >
-              <Shield className="h-4 w-4" />
+              <ShieldCheck className="h-4 w-4" />
               Portal
             </Link>
-            <Link href="/contact" className="btn-primary flex items-center gap-2 group">
-              Enquire Now
+            <Link 
+              href="/admissions" 
+              className="font-worksans text-sm font-semibold text-surface-white bg-success hover:bg-primary transition-all px-6 py-3 rounded focus-ring shadow-sm hover:ambient-shadow flex items-center gap-2 group"
+            >
+              Start Enrollment
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
-          {/* MOBILE TOGGLE */}
+          {/* MOBILE MENU TOGGLE */}
           <button
             onClick={toggleMenu}
-            className="lg:hidden p-2 rounded-lg text-primary hover:bg-surface transition-colors"
+            className="lg:hidden p-2 rounded text-primary hover:bg-surface focus-ring"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -116,14 +116,14 @@ export default function Navbar() {
 
       {/* MOBILE NAV OVERLAY */}
       <div
-        className={`fixed inset-0 z-35 bg-background lg:hidden transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed inset-x-0 bottom-0 z-30 bg-surface-white lg:hidden transition-all duration-300 ease-in-out ${
+          isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full pointer-events-none'
         }`}
         style={{ top: '80px' }}
       >
-        <div className="flex flex-col h-[calc(100vh-80px)] justify-between p-6">
+        <div className="flex flex-col h-full justify-between p-6 overflow-y-auto">
           {/* Navigation Links */}
-          <nav className="flex flex-col gap-5">
+          <nav className="flex flex-col gap-4">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -131,33 +131,33 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className={`text-lg font-medium tracking-wide pb-2 border-b border-border flex items-center justify-between ${
-                    isActive ? 'text-accent font-bold' : 'text-primary'
+                  className={`font-worksans text-base font-semibold py-3 border-b border-border-light flex items-center justify-between ${
+                    isActive ? 'text-focus-teal' : 'text-primary/80'
                   }`}
                 >
                   {link.name}
-                  <span className="text-xs text-muted">→</span>
+                  <span className="text-xs text-secondary">→</span>
                 </Link>
               );
             })}
           </nav>
 
           {/* Bottom Actions */}
-          <div className="flex flex-col gap-4 mt-auto pb-10">
+          <div className="flex flex-col gap-4 mt-auto pb-24">
             <Link
               href="/login"
               onClick={() => setIsOpen(false)}
-              className="btn-secondary w-full text-center flex items-center justify-center gap-2"
+              className="font-worksans text-center text-primary font-semibold border border-primary py-3 rounded flex items-center justify-center gap-2"
             >
-              <Shield className="h-4 w-4" />
+              <ShieldCheck className="h-4 w-4" />
               Student/Admin Portal
             </Link>
             <Link
               href="tel:8800833665"
-              className="btn-primary w-full text-center flex items-center justify-center gap-2"
+              className="font-worksans text-center text-surface-white bg-success py-3 rounded flex items-center justify-center gap-2 font-semibold"
             >
               <Phone className="h-4 w-4" />
-              Call Mentor (8800833665)
+              Call Support: 8800833665
             </Link>
           </div>
         </div>
@@ -165,3 +165,4 @@ export default function Navbar() {
     </>
   );
 }
+

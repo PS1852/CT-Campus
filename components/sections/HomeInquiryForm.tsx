@@ -88,17 +88,17 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
 
   if (success) {
     return (
-      <div className="py-12 px-4 flex flex-col items-center justify-center text-center space-y-4 animate-fade-up">
+      <div className="py-12 px-4 flex flex-col items-center justify-center text-center space-y-4 animate-fade-in-up font-worksans">
         <div className="bg-success/10 text-success p-4 rounded-full">
           <CheckCircle2 className="h-12 w-12" />
         </div>
-        <h4 className="font-display text-2xl font-bold text-primary">Inquiry Received!</h4>
-        <p className="text-sm text-muted max-w-sm">
-          Thank you for reaching out. An academic director from our Karol Bagh campus will call you on your phone within 30 minutes to schedule your counselling session.
+        <h4 className="font-manrope text-2xl font-bold text-primary">Inquiry Received!</h4>
+        <p className="text-sm text-primary/60 max-w-sm">
+          An academic director from our Karol Bagh campus will call you on your WhatsApp number within 30 minutes to schedule your strategic mockup session.
         </p>
         <button
           onClick={() => setSuccess(false)}
-          className="btn-secondary mt-4 w-full"
+          className="w-full bg-primary hover:bg-focus-teal text-surface-white font-manrope font-bold py-3 px-6 rounded transition-colors mt-4"
         >
           Submit Another Request
         </button>
@@ -107,10 +107,10 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-left">
-      {/* Honeypot field (hidden from screen reader and standard viewport) */}
+    <form onSubmit={handleSubmit} className="space-y-4 text-left font-worksans">
+      {/* Honeypot field */}
       <div className="hidden" aria-hidden="true">
-        <label htmlFor="website_verify">Leave this field blank</label>
+        <label htmlFor="website_verify">Leave empty</label>
         <input
           type="text"
           id="website_verify"
@@ -122,9 +122,9 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
         />
       </div>
 
-      {/* Full Name */}
-      <div>
-        <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1.5">
+      {/* Name */}
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="name" className="text-xs font-bold text-primary/80 uppercase">
           Student / Parent Name *
         </label>
         <input
@@ -135,13 +135,13 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
           placeholder="e.g. Rahul Sharma"
           value={formData.name}
           onChange={handleChange}
-          className="form-input"
+          className="custom-input"
         />
       </div>
 
-      {/* Phone Number */}
-      <div>
-        <label htmlFor="phone" className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1.5">
+      {/* Phone */}
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="phone" className="text-xs font-bold text-primary/80 uppercase">
           Phone / WhatsApp Number *
         </label>
         <input
@@ -152,13 +152,13 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
           placeholder="e.g. 9876543210"
           value={formData.phone}
           onChange={handleChange}
-          className="form-input"
+          className="custom-input"
         />
       </div>
 
-      {/* Email Address */}
-      <div>
-        <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1.5">
+      {/* Email */}
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="email" className="text-xs font-bold text-primary/80 uppercase">
           Email Address (Optional)
         </label>
         <input
@@ -168,13 +168,13 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
           placeholder="e.g. rahul@gmail.com"
           value={formData.email}
           onChange={handleChange}
-          className="form-input"
+          className="custom-input"
         />
       </div>
 
       {/* Course Selection */}
-      <div>
-        <label htmlFor="course_interest" className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1.5">
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="course_interest" className="text-xs font-bold text-primary/80 uppercase">
           Program Interest
         </label>
         <select
@@ -182,7 +182,7 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
           name="course_interest"
           value={formData.course_interest}
           onChange={handleChange}
-          className="form-input bg-white appearance-none"
+          className="custom-input bg-surface-white"
         >
           <option value="">Select a Course Program...</option>
           {courses.map((c) => (
@@ -194,8 +194,8 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
       </div>
 
       {/* Message */}
-      <div>
-        <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1.5">
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="message" className="text-xs font-bold text-primary/80 uppercase">
           Any Message or Question (Optional)
         </label>
         <textarea
@@ -205,14 +205,14 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
           placeholder="How can our mentors help you?"
           value={formData.message}
           onChange={handleChange}
-          className="form-input"
+          className="custom-input resize-none"
         />
       </div>
 
       {/* Error Message */}
       {error && (
-        <div className="flex items-start gap-2 bg-error/5 text-error p-3 rounded-lg text-xs leading-relaxed border border-error/15">
-          <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2 bg-error/5 text-error p-3 rounded text-xs border border-error/15">
+          <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
           <span>{error}</span>
         </div>
       )}
@@ -221,12 +221,12 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
       <button
         type="submit"
         disabled={loading}
-        className="btn-primary w-full flex items-center justify-center gap-2 mt-2"
+        className="w-full bg-focus-teal hover:bg-secondary text-surface-white font-manrope font-bold py-3.5 px-6 rounded transition-colors flex items-center justify-center gap-2 mt-2 focus-ring"
       >
         {loading ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" />
-            Submitting...
+            Sending Request...
           </>
         ) : (
           <>

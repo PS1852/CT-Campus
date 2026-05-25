@@ -1,6 +1,6 @@
 import React from 'react';
 import { createClient } from '@/lib/supabase/server';
-import { GraduationCap, Award, BookOpen, Clock, FileText, AlertCircle, Heart } from 'lucide-react';
+import { GraduationCap, Award, BookOpen, Clock, FileText, AlertCircle, Calendar, MessageSquare, PhoneCall, QrCode } from 'lucide-react';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
@@ -10,13 +10,20 @@ export default async function StudentDashboardPage() {
   const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '8800833665';
   const coachingEmail = process.env.NEXT_PUBLIC_COACHING_EMAIL || 'ctcampus2019@gmail.com';
 
-  // Load authenticated user session
+  // Load user
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     return (
-      <div className="py-12 text-center text-muted font-medium text-xs">
-        <AlertCircle className="h-8 w-8 text-amber-500 mx-auto mb-2 animate-bounce" />
-        <span>Authentication required. Please login to proceed.</span>
+      <div className="py-20 text-center font-worksans text-primary space-y-4">
+        <AlertCircle className="h-10 w-10 text-focus-teal mx-auto animate-bounce" />
+        <h3 className="font-manrope text-xl font-bold">Authentication Required</h3>
+        <p className="text-sm text-primary/60 max-w-sm mx-auto">Please sign in to your student portal account to review enrollment status.</p>
+        <Link 
+          href="/login" 
+          className="inline-block bg-primary hover:bg-focus-teal text-surface-white font-manrope font-bold py-2.5 px-6 rounded transition-colors text-sm"
+        >
+          Sign In Now
+        </Link>
       </div>
     );
   }
@@ -28,7 +35,7 @@ export default async function StudentDashboardPage() {
     .eq('user_id', user.id)
     .maybeSingle();
 
-  // Load student admissions applications
+  // Load admissions applications
   let studentAdmissions: any[] = [];
   if (profile) {
     const { data: admissions } = await supabase
@@ -36,6 +43,7 @@ export default async function StudentDashboardPage() {
       .select(`
         id,
         status,
+        payment_submitted,
         created_at,
         courses (
           title,
@@ -52,114 +60,141 @@ export default async function StudentDashboardPage() {
   }
 
   return (
-    <div className="space-y-8 text-left">
-      {/* Welcome banner */}
-      <div>
-        <h1 className="font-display text-3xl font-bold text-primary">
-          Welcome back, {profile?.full_name || 'Student'}!
+    <div className="space-y-8 text-left font-worksans text-primary">
+      {/* Welcome Board */}
+      <header className="space-y-2">
+        <h1 className="font-manrope text-2xl md:text-4xl font-extrabold text-primary tracking-tight">
+          Welcome Back, {profile?.full_name || 'Student'}!
         </h1>
-        <p className="text-sm text-muted">
-          Track admissions logs, consult class calendars, and view receipt summaries opposite Pillar 80 Karol Bagh.
+        <p className="text-sm text-primary/60">
+          Track admissions audits, review batch timing updates, and view campus cabin coordinates opposite Pillar 80 Karol Bagh.
         </p>
-      </div>
+      </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Admissions Tracker & timetables */}
+      {/* Grid splits */}
+      <main className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+        {/* Left Column: Status tracker and Mock timetables */}
         <div className="lg:col-span-8 space-y-6">
           
-          {/* Admissions Application Status */}
-          <div className="bg-white border border-border rounded-2xl shadow-soft p-6 sm:p-8 space-y-6">
-            <h3 className="font-display text-xl font-bold text-primary border-b border-border pb-3 flex items-center gap-2">
-              <FileText className="h-5 w-5 text-accent" />
-              Admissions Status Tracker
+          {/* Admissions Tracker */}
+          <div className="bg-surface-white border border-border-light rounded p-6 md:p-8 space-y-6 shadow-sm">
+            <h3 className="font-manrope text-lg md:text-xl font-bold text-primary border-b border-border-light pb-4 flex items-center gap-2">
+              <FileText className="h-5 w-5 text-focus-teal" />
+              Admissions Placement Ledger
             </h3>
 
             <div className="space-y-4">
               {studentAdmissions && studentAdmissions.length > 0 ? (
                 studentAdmissions.map((adm) => {
-                  const submittedAt = new Date(adm.created_at).toLocaleDateString('en-IN', {
+                  const appliedDate = new Date(adm.created_at).toLocaleDateString('en-IN', {
                     day: 'numeric',
                     month: 'short',
-                    year: 'numeric',
+                    year: 'numeric'
                   });
 
                   return (
-                    <div key={adm.id} className="border border-border/60 rounded-xl p-4 flex justify-between items-center bg-surface/20">
+                    <div key={adm.id} className="border border-border-light rounded p-5 flex flex-col sm:flex-row sm:items-center justify-between bg-surface/30 gap-4">
                       <div className="space-y-1">
-                        <h4 className="font-semibold text-primary text-sm sm:text-base leading-normal">
-                          {adm.courses?.title || 'Course Mentorship'}
+                        <h4 className="font-manrope font-bold text-primary text-base leading-snug">
+                          {adm.courses?.title || 'Entrance Course Cohort'}
                         </h4>
-                        <span className="text-[10px] text-muted block">Applied on: {submittedAt}</span>
+                        <div className="flex flex-wrap items-center gap-3 text-xs text-primary/45 font-semibold">
+                          <span>Applied on: {appliedDate}</span>
+                          <span>•</span>
+                          <span>Category: {adm.courses?.category}</span>
+                        </div>
                       </div>
-                      <span className={`inline-flex px-2.5 py-0.5 rounded-full text-[9px] uppercase font-bold border ${
-                        adm.status === 'approved'
-                          ? 'bg-emerald-50 border-emerald-200 text-emerald-600'
-                          : adm.status === 'pending_verification'
-                          ? 'bg-amber-50 border-amber-200 text-amber-600'
-                          : adm.status === 'pending'
-                          ? 'bg-slate-50 border-slate-200 text-slate-500'
-                          : 'bg-red-50 border-red-200 text-red-600'
-                      }`}>
-                        {adm.status}
-                      </span>
+
+                      <div className="flex items-center gap-3 shrink-0">
+                        {adm.status === 'pending' && !adm.payment_submitted && (
+                          <Link 
+                            href={`/fees?admission_id=${adm.id}`}
+                            className="bg-focus-teal hover:bg-secondary text-surface-white text-xs font-manrope font-bold px-4 py-2 rounded focus-ring inline-flex items-center gap-1.5 transition-colors"
+                          >
+                            <QrCode className="h-4 w-4" />
+                            Settle Fees
+                          </Link>
+                        )}
+                        <span className={`inline-flex px-3 py-1 rounded-full text-[10px] uppercase font-bold border ${
+                          adm.status === 'approved'
+                            ? 'bg-success/10 border-success/30 text-success'
+                            : adm.status === 'pending_verification'
+                            ? 'bg-focus-teal/10 border-focus-teal/30 text-focus-teal'
+                            : 'bg-primary/5 border-border-light text-primary/45'
+                        }`}>
+                          {adm.status === 'pending_verification' ? 'Audit Pending' : adm.status}
+                        </span>
+                      </div>
                     </div>
                   );
                 })
               ) : (
-                <div className="py-6 text-center text-muted text-xs font-medium space-y-3">
-                  <p>You have no active admissions applications logged under this account.</p>
-                  <Link href="/admissions" className="btn-primary text-xs min-h-[36px] px-4 py-2 inline-flex items-center">
-                    Submit Online Application
+                <div className="py-8 text-center text-primary/45 text-xs font-semibold space-y-4">
+                  <p>You have no active admissions applications logged.</p>
+                  <Link 
+                    href="/admissions" 
+                    className="inline-flex bg-focus-teal hover:bg-secondary text-surface-white font-manrope font-bold py-2.5 px-6 rounded transition-colors text-xs"
+                  >
+                    Submit Admissions Form
                   </Link>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Timetable schedule (Mock) */}
-          <div className="bg-white border border-border rounded-2xl shadow-soft p-6 sm:p-8 space-y-6">
-            <h3 className="font-display text-xl font-bold text-primary border-b border-border pb-3 flex items-center gap-2">
-              <Clock className="h-5 w-5 text-accent" />
-              Active Timetable Schedule
+          {/* Timetable Calendar */}
+          <div className="bg-surface-white border border-border-light rounded p-6 md:p-8 space-y-6 shadow-sm text-left">
+            <h3 className="font-manrope text-lg md:text-xl font-bold text-primary border-b border-border-light pb-4 flex items-center gap-2">
+              <Calendar className="h-5 w-5 text-focus-teal" />
+              Batch Schedules & Timelines
             </h3>
             
-            <div className="border border-border/80 rounded-xl p-5 text-center text-xs text-muted leading-relaxed">
-              <p>Your program batch timings are currently being scheduled. Once the Karol Bagh frontdesk verifies marksheets and secures fee allocation, your active calendar timeline will load here.</p>
-              <span className="font-semibold text-accent block mt-3 font-body">Standard Timing Options:</span>
-              <span className="text-primary mt-1 block">Morning slots (8:30 AM - 11:30 AM) | Evening slots (4:30 PM - 7:30 PM)</span>
+            <div className="border border-border-light rounded p-6 bg-surface/30 text-center space-y-3 font-semibold">
+              <p className="text-xs text-primary/60 leading-relaxed">
+                Your personal exam prep timetable calendar is currently under scheduling. Once manual QR payment settles and document audit verifies, class calendar tracks will load instantly.
+              </p>
+              <div className="text-[10px] text-focus-teal uppercase tracking-widest pt-2">Standard Batch Timings:</div>
+              <p className="text-xs text-primary/80">Morning Cohorts (8:30 AM - 11:30 AM) | Evening Cohorts (4:30 PM - 7:30 PM)</p>
             </div>
           </div>
 
         </div>
 
-        {/* Right Column: Cabin Load Info */}
-        <div className="lg:col-span-4 space-y-6">
-          {/* Silent study cabin info */}
-          <div className="bg-primary text-background rounded-2xl p-6 sm:p-8 space-y-4 text-left">
-            <div className="bg-background text-primary p-2 rounded-lg inline-flex items-center justify-center">
-              <GraduationCap className="h-5 w-5 text-accent" />
+        {/* Right Column: Cabin Allocation & Helpline Cards */}
+        <div className="lg:col-span-4 space-y-6 text-left">
+          
+          {/* Silent study cabin cards */}
+          <div className="bg-primary text-surface-white rounded-lg p-6 md:p-8 space-y-4">
+            <div className="bg-surface-white text-primary p-2.5 rounded inline-flex items-center justify-center h-10 w-10">
+              <GraduationCap className="h-6 w-6 text-focus-teal" />
             </div>
-            <h4 className="font-display text-lg font-bold">Silent Library study Cabins</h4>
-            <p className="text-xs text-background/70 leading-relaxed">
-              Every CT Campus enrollee secures free, customized quiet library cabins access at our Karol Bagh campus. Located opposite Pillar 80 Karol Bagh.
+            <h4 className="font-manrope text-lg font-bold">Silent Library Cabins Allocation</h4>
+            <p className="text-xs text-surface-container/60 leading-relaxed">
+              Every strategic enrolee obtains personal AC sound-damped study cabin allocations at our WEA Karol Bagh campus for peaceful mocks practice and notes cataloging.
             </p>
-            <div className="pt-2 text-xs font-semibold text-accent flex items-center gap-1">
-              <Clock className="h-4 w-4" />
-              Open Hours: Mon - Sun, 9AM - 8PM
+            <div className="pt-2 text-xs font-bold text-focus-teal flex items-center gap-1.5 border-t border-surface-container/10">
+              <Clock className="h-4 w-4" /> Open Hours: Mon - Sun, 9AM - 8PM
             </div>
           </div>
 
-          {/* Quick Helpline */}
-          <div className="border border-border bg-white rounded-2xl p-6 space-y-3 text-left text-xs text-muted leading-relaxed">
-            <h4 className="font-display font-bold text-primary text-sm sm:text-base border-b border-border pb-2">
-              Mentorship Helpline
+          {/* Mentorship Hotline */}
+          <div className="bg-surface-white border border-border-light rounded p-6 shadow-sm space-y-3 font-semibold text-xs text-primary/60">
+            <h4 className="font-manrope text-sm font-bold text-primary border-b border-border-light pb-2">
+              Strategic Helpdesk
             </h4>
-            <p>For urgent questions regarding Mock schedules, coupon codes, or printed booklet shipping, call our campus advisors.</p>
-            <div className="font-semibold text-accent pt-1 font-mono">Phone Helpline: +91 {supportPhone}</div>
-            <div className="text-[10px] text-muted font-bold font-body">Email Support: {coachingEmail}</div>
+            <p className="leading-relaxed">For urgent queries regarding mocks patterns, booklet shipping, or cabinet keys, reach center desk coordinators immediately.</p>
+            <div className="pt-2 flex flex-col gap-2 font-bold">
+              <a href={`tel:${supportPhone}`} className="text-focus-teal hover:underline flex items-center gap-1.5">
+                <PhoneCall className="h-3.5 w-3.5" /> Call Advisor: +91 {supportPhone}
+              </a>
+              <a href={`mailto:${coachingEmail}`} className="text-primary/45 flex items-center gap-1.5">
+                <Mail className="h-3.5 w-3.5 text-primary/45" /> {coachingEmail}
+              </a>
+            </div>
           </div>
+
         </div>
-      </div>
+      </main>
     </div>
   );
 }

@@ -1,33 +1,44 @@
 import React from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import JsonLd from '@/components/shared/JsonLd';
-import { getOrganizationSchema, getLocalBusinessSchema } from '@/lib/seo/metadata';
-import { BookOpen, Award, Users, ArrowRight, ShieldCheck, CheckCircle2, MessageSquare, PhoneCall } from 'lucide-react';
-import HomeInquiryForm from '@/components/sections/HomeInquiryForm';
+import { 
+  BookOpen, 
+  Award, 
+  Users, 
+  ArrowRight, 
+  CheckCircle2, 
+  PhoneCall, 
+  GraduationCap, 
+  BookOpenCheck,
+  ChevronRight,
+  Sparkles,
+  Calendar,
+  Clock
+} from 'lucide-react';
 
-// Fallback courses data if database load fails
+// Real fallbacks mapping NLU schemas and pricing
 const fallbackCourses = [
-  { title: 'CLAT Mentorship Program', slug: 'clat-coaching-delhi', description: 'Comprehensive NLU alumni-led law entrance mentorship program covering all critical reading and legal reasoning patterns.', fee: 50000, duration: '1 Year', category: 'CLAT' },
-  { title: 'IPMAT IIM Integrated Prep', slug: 'best-ipmat-coaching-delhi', description: 'Advanced IIM entrance module with rigorous quant sessions and WAT/PI interview training with standard metrics.', fee: 80000, duration: '1 Year', category: 'IPMAT' },
-  { title: 'CUET UG Success Batch', slug: 'best-cuet-coaching-delhi', description: 'Complete general test and core domain syllabus coaching mapped strictly to NCERT board standards.', fee: 30000, duration: '6 Months', category: 'CUET' },
+  { title: 'CLAT Mastery Program', slug: 'clat-coaching-delhi', description: 'Comprehensive preparation for Common Law Admission Test with intensive focus on legal reasoning and critical reading modules.', fee: 14999, duration: '1 Year', category: 'CLAT' },
+  { title: 'IPMAT Excellence Program', slug: 'best-ipmat-coaching-delhi', description: 'Integrated Program in Management Aptitude Test prep focusing on advanced quantitative, logical, and verbal abilities.', fee: 19999, duration: '1 Year', category: 'IPMAT' },
+  { title: 'CUET Foundation Course', slug: 'best-cuet-coaching-delhi', description: 'Common University Entrance Test preparation aligning perfectly with CBSE boards and domain-specific tests.', fee: 11999, duration: '6 Months', category: 'CUET' },
 ];
 
-export const revalidate = 3600; // Cache page for 1 hour, incremental regeneration
+export const revalidate = 3600; // incremental static regeneration every hour
 
 export default async function HomePage() {
   const supabase = createClient();
-  
-  // Fetch courses from database
+  const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '8800833665';
+
+  // Fetch dynamic active courses
   const { data: dbCourses } = await supabase
     .from('courses')
     .select('*')
     .eq('is_active', true)
     .order('created_at', { ascending: true });
-    
+
   const courses = dbCourses && dbCourses.length > 0 ? dbCourses : fallbackCourses;
 
-  // Fetch recent published blogs
+  // Fetch blogs
   const { data: blogs } = await supabase
     .from('blog_posts')
     .select('*')
@@ -35,204 +46,264 @@ export default async function HomePage() {
     .order('created_at', { ascending: false })
     .limit(3);
 
-  // Fetch active FAQs
+  // Fetch FAQs
   const { data: faqs } = await supabase
     .from('faqs')
     .select('*')
     .eq('is_active', true)
     .order('sort_order', { ascending: true })
-    .limit(5);
-
-  const orgSchema = getOrganizationSchema();
-  const businessSchema = getLocalBusinessSchema();
+    .limit(4);
 
   return (
-    <>
-      <JsonLd schema={orgSchema} />
-      <JsonLd schema={businessSchema} />
-
+    <div className="bg-background min-h-screen font-worksans text-primary antialiased">
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden bg-surface py-20 lg:py-32 border-b border-border">
-        {/* Soft abstract gradient background */}
-        <div className="absolute inset-0 glow-gradient pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Hero Left Info */}
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 bg-primary/5 border border-primary/10 px-3.5 py-1.5 rounded-full">
-                <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                <span className="text-xs font-semibold tracking-wider uppercase text-primary/80">
-                  New Delhi’s Leading Entrance Mentorship
-                </span>
-              </div>
-              
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary leading-tight">
-                CT CAMPUS — Mentorship for CLAT, IPMAT & CUET Success
-              </h1>
-              
-              <p className="text-lg text-muted max-w-xl leading-relaxed">
-                Elevate your undergraduate entrance preparation under 1-on-1 guided strategies curated by NLU and IIM alumni. We believe in elite mentorship over mass lectures.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Link href="/courses" className="btn-primary flex items-center justify-center gap-2 group">
-                  Explore Class Programs
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link href="/contact" className="btn-secondary flex items-center justify-center gap-2">
-                  <PhoneCall className="h-4 w-4 text-accent" />
-                  Free 1-on-1 Consultation
-                </Link>
-              </div>
-
-              {/* USP Row */}
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-border/80">
-                <div className="space-y-1">
-                  <span className="text-2xl font-bold text-accent font-display">82%</span>
-                  <span className="text-xs text-muted block uppercase font-medium">NLU Success</span>
-                </div>
-                <div className="space-y-1">
-                  <span className="text-2xl font-bold text-accent font-display">1-on-1</span>
-                  <span className="text-xs text-muted block uppercase font-medium">Personal Coaching</span>
-                </div>
-                <div className="space-y-1">
-                  <span className="text-2xl font-bold text-accent font-display">Karol Bagh</span>
-                  <span className="text-xs text-muted block uppercase font-medium">Premier Campus</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Hero Right Interactive Form */}
-            <div className="lg:col-span-5">
-              <div className="bg-white p-6 sm:p-8 rounded-2xl border border-border shadow-soft">
-                <h3 className="font-display text-2xl font-bold text-primary mb-2 text-left">
-                  Request Fee Discount
-                </h3>
-                <p className="text-sm text-muted mb-6 text-left">
-                  Enter your details to schedule a free diagnosis session with our academic mentors and unlock scholarship options.
-                </p>
-                <HomeInquiryForm courses={courses} />
-              </div>
-            </div>
-          </div>
+      <section className="relative pt-20 pb-32 overflow-hidden bg-surface-white border-b border-border-light">
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]">
+          <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#0a1422" strokeWidth="1" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+          </svg>
         </div>
-      </section>
 
-      {/* CORE STATS BANNER */}
-      <section className="bg-primary text-background py-8 border-y border-primary/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div className="flex items-center gap-4 justify-center md:border-r border-background/10 last:border-0 md:pr-4">
-            <BookOpen className="h-8 w-8 text-accent shrink-0" />
-            <div className="text-left">
-              <h4 className="font-semibold text-lg">Curated NCERT Domain Material</h4>
-              <p className="text-xs text-background/60">Fully comprehensive booklets</p>
-            </div>
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter relative z-10 text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-success/10 text-success font-semibold text-xs mb-8 uppercase tracking-wider animate-fade-in-up">
+            <Sparkles className="h-4.5 w-4.5 text-focus-teal" />
+            Admissions Open 2024-2025
           </div>
-          <div className="flex items-center gap-4 justify-center md:border-r border-background/10 last:border-0 md:pr-4">
-            <Award className="h-8 w-8 text-accent shrink-0" />
-            <div className="text-left">
-              <h4 className="font-semibold text-lg">NLU & IIM Faculty Experts</h4>
-              <p className="text-xs text-background/60">Exclusive 1-on-1 strategy sessions</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 justify-center">
-            <Users className="h-8 w-8 text-accent shrink-0" />
-            <div className="text-left">
-              <h4 className="font-semibold text-lg">Silent Library Study Cabins</h4>
-              <p className="text-xs text-background/60">Karol Bagh campus access</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ACADEMIC COURSES GRID */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-3 mb-16">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary">
-            Curated Entrance Mentorship Classes
-          </h2>
-          <p className="text-muted max-w-2xl mx-auto text-sm sm:text-base">
-            Enroll in our top-rated academic programs designed strictly around performance thresholds, regular mock trials, and syllabus tracking.
+          {/* Heading */}
+          <h1 className="font-manrope text-4xl md:text-6xl font-extrabold text-primary max-w-4xl mx-auto mb-6 leading-tight tracking-tight">
+            Strategic Mentorship for <span className="text-focus-teal">CLAT, IPMAT & CUET</span> Success
+          </h1>
+
+          {/* Subtext */}
+          <p className="font-worksans text-base md:text-lg text-primary/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Elevate your undergraduate prep with tailored study architectures and 1-on-1 strategic coaching supervised by law and management experts.
           </p>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {courses.map((course: any) => (
-            <div key={course.slug} className="academic-card p-6 flex flex-col justify-between text-left h-full">
-              <div className="space-y-4">
-                <span className="inline-block px-2.5 py-1 text-xs font-semibold bg-surface border border-accent/20 text-accent rounded-full">
-                  {course.category}
-                </span>
-                <h3 className="font-display text-xl font-bold text-primary">
-                  {course.title}
-                </h3>
-                <p className="text-sm text-muted leading-relaxed line-clamp-3">
-                  {course.description}
-                </p>
-              </div>
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+            <Link 
+              href="/admissions" 
+              className="w-full sm:w-auto font-manrope font-semibold text-surface-white bg-success hover:bg-primary transition-all px-8 py-4 rounded focus-ring shadow-sm hover:ambient-shadow text-center flex items-center justify-center gap-2"
+            >
+              Start Enrollment 
+              <ArrowRight className="h-5 w-5 text-focus-teal" />
+            </Link>
+            <Link 
+              href="#programs" 
+              className="w-full sm:w-auto font-manrope font-semibold text-primary bg-surface-white border border-border-light hover:border-focus-teal transition-all px-8 py-4 rounded focus-ring text-center"
+            >
+              Explore Programs
+            </Link>
+          </div>
 
-              <div className="mt-8 pt-4 border-t border-border flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] text-muted uppercase font-semibold block">Fee / Duration</span>
-                  <span className="text-base font-bold text-primary">
-                    ₹{course.fee ? course.fee.toLocaleString('en-IN') : 'N/A'} <span className="text-xs font-normal text-muted">({course.duration})</span>
-                  </span>
-                </div>
-                <Link
-                  href={`/courses/${course.slug}`}
-                  className="inline-flex h-9 w-9 items-center justify-center bg-primary text-background rounded-full hover:bg-accent hover:text-primary transition-colors"
-                  aria-label={`View ${course.title} details`}
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
+          {/* Trust Indicators / Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 pt-10 border-t border-border-light max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="font-manrope text-3xl font-extrabold text-primary mb-1">98%</div>
+              <div className="text-xs text-primary/60 uppercase tracking-widest font-semibold">Selection Rate</div>
             </div>
-          ))}
+            <div className="text-center">
+              <div className="font-manrope text-3xl font-extrabold text-primary mb-1">5000+</div>
+              <div className="text-xs text-primary/60 uppercase tracking-widest font-semibold">Students Mentored</div>
+            </div>
+            <div className="text-center">
+              <div className="font-manrope text-3xl font-extrabold text-primary mb-1">50+</div>
+              <div className="text-xs text-primary/60 uppercase tracking-widest font-semibold">Expert Faculty</div>
+            </div>
+            <div className="text-center">
+              <div className="font-manrope text-3xl font-extrabold text-primary mb-1">100%</div>
+              <div className="text-xs text-primary/60 uppercase tracking-widest font-semibold">Syllabus Coverage</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* STRATEGIC EXAM BLOG INDEX (LAST 3 POSTS) */}
-      {blogs && blogs.length > 0 && (
-        <section className="bg-surface py-20 border-y border-border">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-4">
-              <div className="space-y-3 text-left">
-                <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary">
-                  Strategic Entrance Preparation Insights
-                </h2>
-                <p className="text-muted max-w-xl text-sm sm:text-base">
-                  Get structural suggestions, reading comprehension strategies, and NCERT domain selection guidelines drafted by our leading mentors.
-                </p>
+      {/* PROGRAMS SECTION */}
+      <section className="py-20 bg-surface-container/30 border-b border-border-light" id="programs">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+          <div className="text-center mb-16 space-y-3">
+            <h2 className="font-manrope text-3xl font-bold text-primary">Focused Preparation Tracks</h2>
+            <p className="font-worksans text-sm text-primary/60 max-w-2xl mx-auto">
+              Structured modules engineered precisely by academic professionals to give you the competitive edge in undergraduate exams.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {courses.map((course: any) => (
+              <div 
+                key={course.slug} 
+                className="bg-surface-white rounded-lg border border-border-light p-8 hover:ambient-shadow transition-shadow group relative overflow-hidden text-left flex flex-col justify-between"
+              >
+                <div>
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded bg-focus-teal/10 text-focus-teal mb-6">
+                    <BookOpenCheck className="h-6 w-6" />
+                  </div>
+                  <span className="inline-block float-right text-xs font-bold text-success bg-success/10 px-2.5 py-1 rounded-full uppercase">
+                    {course.category}
+                  </span>
+                  <h3 className="font-manrope text-xl font-bold text-primary mb-3">
+                    {course.title}
+                  </h3>
+                  <p className="text-sm text-primary/60 mb-6 leading-relaxed">
+                    {course.description}
+                  </p>
+                </div>
+                
+                <div className="pt-6 border-t border-border-light flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] uppercase font-bold text-primary/40 block">Course Fee</span>
+                    <span className="text-base font-extrabold text-primary">
+                      ₹{course.fee ? course.fee.toLocaleString('en-IN') : 'N/A'}
+                    </span>
+                  </div>
+                  <Link 
+                    href="/admissions" 
+                    className="font-manrope text-sm font-bold text-focus-teal hover:text-primary transition-colors flex items-center gap-1 group-hover:gap-2"
+                  >
+                    Enroll Now <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
-              <Link href="/blog" className="btn-secondary flex items-center gap-2 shrink-0">
-                View All Articles
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ADVANTAGE / METHODOLOGY SECTION */}
+      <section className="py-20 bg-surface-white border-b border-border-light">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Left SVG Illustration */}
+            <div className="w-full lg:w-1/2">
+              <div className="bg-surface rounded-lg p-8 border border-border-light relative overflow-hidden aspect-video flex items-center justify-center bg-gradient-to-tr from-primary to-primary-container">
+                <div className="absolute inset-0 opacity-10 bg-radial-gradient"></div>
+                <div className="text-center z-10 space-y-4">
+                  <div className="bg-focus-teal/20 text-focus-teal h-16 w-16 mx-auto rounded-full flex items-center justify-center">
+                    <Award className="h-8 w-8" />
+                  </div>
+                  <h4 className="font-manrope text-xl font-bold text-surface-white">Elite Coaching Architecture</h4>
+                  <p className="text-xs text-surface-white/60 max-w-sm mx-auto">Providing strategic test models and classroom learning rooms designed for pure focus.</p>
+                </div>
+                <div className="absolute bottom-6 right-6 glass-panel py-2.5 px-4 rounded border-border-light/10 flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-success animate-ping"></span>
+                  <span className="text-xs font-bold text-primary">Active Learning Batch</span>
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Right Advantage List */}
+            <div className="w-full lg:w-1/2 text-left space-y-8">
+              <div className="space-y-4">
+                <h2 className="font-manrope text-3xl font-bold text-primary">The CT CAMPUS Advantage</h2>
+                <p className="text-sm text-primary/60 leading-relaxed">
+                  We believe that standard bulk classroom models fail to extract the student's true potential. Our entire structure focuses on customized diagnostic cycles.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 rounded bg-success/10 flex items-center justify-center text-success">
+                      <CheckCircle2 className="h-5 w-5" />
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-manrope text-lg font-bold text-primary mb-1">One-on-One Guided Mentorship</h4>
+                    <p className="text-sm text-primary/60">Dedicated strategizing sessions with experienced mentors to track scores and iron out weak concepts.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 rounded bg-success/10 flex items-center justify-center text-success">
+                      <CheckCircle2 className="h-5 w-5" />
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-manrope text-lg font-bold text-primary mb-1">Curated Daily Worklets</h4>
+                    <p className="text-sm text-primary/60">Fully comprehensive, up-to-date reading, analytics, and numerical exercises designed around core exam frameworks.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 rounded bg-success/10 flex items-center justify-center text-success">
+                      <CheckCircle2 className="h-5 w-5" />
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-manrope text-lg font-bold text-primary mb-1">Active Performance Tracking</h4>
+                    <p className="text-sm text-primary/60">Advanced mock dashboard diagnostics to isolate exact pain points and direct corrective assignments.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* STRATEGIC BLOGS INDEX */}
+      {blogs && blogs.length > 0 && (
+        <section className="py-20 bg-surface border-b border-border-light">
+          <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+            <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4 text-left">
+              <div>
+                <h2 className="font-manrope text-3xl font-bold text-primary">Strategic Exam Insights</h2>
+                <p className="text-sm text-primary/60 mt-2">Latest strategic inputs, patterns analyses, and schedules from our coaching expert panel.</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {blogs.map((post: any) => (
-                <div key={post.slug} className="bg-white border border-border rounded-xl p-6 flex flex-col justify-between text-left hover:shadow-soft transition-shadow">
-                  <div className="space-y-3">
-                    <span className="text-xs font-bold text-accent uppercase tracking-wider block">
-                      {post.category}
-                    </span>
-                    <h3 className="font-display text-lg font-bold text-primary hover:text-accent transition-colors">
-                      <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                <article key={post.id} className="bg-surface-white rounded-lg border border-border-light overflow-hidden flex flex-col justify-between hover:ambient-shadow transition-shadow text-left">
+                  <div className="p-6">
+                    <span className="text-xs font-bold text-focus-teal uppercase tracking-wider block mb-3">{post.category}</span>
+                    <h3 className="font-manrope text-lg font-bold text-primary mb-3 line-clamp-2">
+                      {post.title}
                     </h3>
-                    <p className="text-sm text-muted leading-relaxed line-clamp-3">
-                      {post.excerpt}
+                    <p className="text-sm text-primary/60 line-clamp-3 leading-relaxed mb-4">
+                      {post.excerpt || 'Read professional exam strategy notes curated by CT CAMPUS core panel experts.'}
                     </p>
                   </div>
+                  <div className="px-6 py-4 bg-surface-bright border-t border-border-light flex items-center justify-between text-xs text-primary/50">
+                    <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" /> {new Date(post.created_at).toLocaleDateString('en-IN')}</span>
+                    <Link href={`/blog/${post.slug}`} className="text-focus-teal font-bold hover:text-primary transition-colors flex items-center gap-0.5">
+                      Read Strategy <ChevronRight className="h-3 w-3" />
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="text-sm font-semibold text-primary hover:text-accent transition-colors flex items-center gap-1.5 mt-6 pt-4 border-t border-border/60"
-                  >
-                    Read Strategy
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+      {/* FAQS SECTION */}
+      {faqs && faqs.length > 0 && (
+        <section className="py-20 bg-surface-white border-b border-border-light">
+          <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+            <div className="text-center mb-16 space-y-3">
+              <h2 className="font-manrope text-3xl font-bold text-primary">Academic FAQs</h2>
+              <p className="text-sm text-primary/60 max-w-xl mx-auto">Get answers to critical preparation workflows and admission criteria queries.</p>
+            </div>
+
+            <div className="max-w-3xl mx-auto space-y-4">
+              {faqs.map((faq: any) => (
+                <div key={faq.id} className="p-6 bg-surface rounded border border-border-light text-left">
+                  <h4 className="font-manrope text-base font-bold text-primary flex items-start gap-2">
+                    <span className="text-focus-teal font-bold">Q.</span>
+                    {faq.question}
+                  </h4>
+                  <p className="text-sm text-primary/60 mt-3 pl-5 leading-relaxed border-l-2 border-focus-teal/30">
+                    {faq.answer}
+                  </p>
                 </div>
               ))}
             </div>
@@ -240,65 +311,30 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* SEED FAQ PANEL ACCORDION */}
-      {faqs && faqs.length > 0 && (
-        <section className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-3 mb-16">
-            <h2 className="font-display text-3xl font-bold text-primary">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-muted text-sm sm:text-base">
-              Get transparent answers directly from academic experts regarding CLAT, IPMAT, CUET, and Karol Bagh hostel alignments.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {faqs.map((faq: any, idx: number) => (
-              <details
-                key={faq.id}
-                className="group border border-border bg-white rounded-xl p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer"
-              >
-                <summary className="flex items-center justify-between gap-4 font-semibold text-primary text-base sm:text-lg text-left list-none">
-                  <span>{faq.question}</span>
-                  <span className="transition-transform group-open:rotate-180 text-accent font-bold shrink-0">
-                    ▼
-                  </span>
-                </summary>
-                <p className="mt-4 text-sm text-muted leading-relaxed text-left border-t border-border/50 pt-4">
-                  {faq.answer}
-                </p>
-              </details>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* FINAL TRUST BANNER */}
-      <section className="bg-primary text-background py-16 border-t border-primary/20 text-center relative overflow-hidden">
-        <div className="absolute inset-0 glow-gradient pointer-events-none opacity-20" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 relative">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold">
-            Still Confused About Batch Options?
-          </h2>
-          <p className="text-background/70 max-w-xl mx-auto text-sm sm:text-base">
-            Select a custom scheduling program or reach our Karol Bagh campus direct to discuss scholarship limits and study routines with our directors.
+      {/* HOTLINE CTA BANNER */}
+      <section className="py-20 bg-primary text-surface-white text-center relative overflow-hidden">
+        <div className="max-w-3xl mx-auto px-margin-mobile md:px-gutter relative z-10 space-y-6">
+          <h2 className="font-manrope text-3xl font-bold">Launch Your Preparations Journey Today</h2>
+          <p className="text-sm text-surface-container/70 max-w-xl mx-auto">
+            Secure your seat inside our curated batches. Limited 30-student cohort slots allocated for individual mentorship rigor.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-            <a
-              href="https://wa.me/918800833665?text=Hi%20CT%20Campus%20Mentor,%20I'm%20interested%20in%20arranging%20a%20personal%20career%20session."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary bg-accent hover:bg-accent/90 text-primary flex items-center justify-center gap-2"
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link 
+              href="/admissions" 
+              className="w-full sm:w-auto font-manrope font-semibold text-primary bg-surface-white hover:bg-surface-container transition-colors px-8 py-4 rounded focus-ring inline-flex items-center justify-center gap-2"
             >
-              <MessageSquare className="h-5 w-5 fill-current" />
-              WhatsApp Strategic Mentor
-            </a>
-            <Link href="/contact" className="btn-secondary bg-[#0f0f20] border-border/10 text-background hover:bg-[#151530] flex items-center justify-center gap-2">
-              Visit Campus Directory
+              Start Online Enrollment <ArrowRight className="h-4.5 w-4.5" />
             </Link>
+            <a 
+              href={`tel:${supportPhone}`} 
+              className="w-full sm:w-auto font-manrope font-semibold text-surface-white border border-surface-white/20 hover:border-surface-white transition-colors px-8 py-4 rounded focus-ring inline-flex items-center justify-center gap-2"
+            >
+              <PhoneCall className="h-4.5 w-4.5 text-focus-teal" />
+              Call Support: {supportPhone}
+            </a>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

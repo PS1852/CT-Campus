@@ -7,10 +7,8 @@ import {
   AlertCircle, 
   FileText, 
   CheckCircle2, 
-  XCircle,
-  Phone, 
+  PhoneCall, 
   Mail, 
-  Calendar,
   Clock,
   Loader2,
   Search,
@@ -75,7 +73,6 @@ export default function AdminStudentsPage() {
 
       if (updateErr) throw updateErr;
 
-      // Update state locally
       setAdmissions((prev) => 
         prev.map((adm) => adm.id === id ? { ...adm, status: newStatus } : adm)
       );
@@ -99,72 +96,65 @@ export default function AdminStudentsPage() {
   });
 
   return (
-    <div className="space-y-8 text-left">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-6">
+    <div className="space-y-8 text-left font-worksans text-primary">
+      {/* Header Segment */}
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border-light pb-6">
         <div>
-          <h1 className="font-display text-3xl font-extrabold text-primary">
-            Enrollments & Payments Auditor
+          <h1 className="font-manrope text-2xl md:text-4xl font-extrabold text-primary tracking-tight">
+            Admissions & Payments Ledger
           </h1>
-          <p className="text-sm text-muted mt-1">
-            Audit manual UPI QR code transfers, review pre-filled emails, and unlock target program course resources.
+          <p className="text-sm text-primary/60 mt-1">
+            Audit manual UPI QR bank logs, examine marksheet documents link, and trigger student role access validations.
           </p>
         </div>
-      </div>
+      </header>
 
-      {/* Control Segment */}
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-white p-4 rounded-xl border border-border">
-        {/* Search */}
+      {/* Search and Filters */}
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-surface-white p-4 rounded border border-border-light shadow-sm">
+        {/* Search Input */}
         <div className="sm:col-span-8 relative">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-primary/40" />
           <input
             type="text"
-            placeholder="Search by student name, phone, email or program..."
+            placeholder="Search student, WhatsApp number, or program..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="form-input pl-10 text-xs sm:text-sm"
+            className="custom-input pl-11 w-full text-xs sm:text-sm py-2.5"
           />
         </div>
 
-        {/* Filter */}
+        {/* Status Dropdown */}
         <div className="sm:col-span-4">
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="form-input bg-white appearance-none text-xs sm:text-sm"
+            className="custom-input bg-surface-white w-full text-xs sm:text-sm py-2.5"
           >
-            <option value="all">All Applications</option>
+            <option value="all">All Registrations</option>
             <option value="pending">Pending Payment (pending)</option>
-            <option value="pending_verification">Verification Required (pending_verification)</option>
-            <option value="approved">Approved Enrollments</option>
-            <option value="rejected">Rejected Payments</option>
+            <option value="pending_verification">Pending Audit (pending_verification)</option>
+            <option value="approved">Approved Placement</option>
+            <option value="rejected">Rejected Entries</option>
           </select>
         </div>
       </div>
 
-      {/* Admissions Audit Ledger */}
-      <div className="bg-white border border-border rounded-2xl shadow-soft p-6 sm:p-8 space-y-6">
-        <div className="flex justify-between items-center border-b border-border pb-4">
-          <div>
-            <h3 className="font-display text-xl font-bold text-primary">
-              Enrollments Audit Registry
-            </h3>
-            <p className="text-xs text-muted mt-0.5">
-              Confirm bank SMS details and execute program access activations below.
-            </p>
-          </div>
+      {/* Ledger Table */}
+      <div className="bg-surface-white border border-border-light rounded shadow-sm p-6 md:p-8 space-y-6">
+        <div className="border-b border-border-light pb-4">
+          <h3 className="font-manrope text-lg md:text-xl font-bold text-primary">
+            Student Ledger Registry
+          </h3>
         </div>
 
         {loading ? (
-          <div className="py-20 text-center text-muted font-medium text-xs">
-            <div className="flex flex-col items-center justify-center space-y-2">
-              <Loader2 className="h-8 w-8 animate-spin text-accent" />
-              <span>Fetching secure databases logs...</span>
-            </div>
+          <div className="py-20 text-center flex flex-col items-center justify-center space-y-3">
+            <Loader2 className="h-8 w-8 animate-spin text-focus-teal" />
+            <span className="text-xs text-primary/45 uppercase tracking-widest font-bold">Accessing database channels...</span>
           </div>
         ) : error ? (
-          <div className="flex items-start gap-2 bg-error/5 text-error p-4 rounded-xl text-xs border border-error/15">
-            <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2 bg-error/5 text-error p-4 rounded text-xs border border-error/15">
+            <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
         ) : filteredAdmissions.length > 0 ? (
@@ -175,7 +165,7 @@ export default function AdminStudentsPage() {
                 month: 'short',
                 year: 'numeric',
                 hour: '2-digit',
-                minute: '2-digit',
+                minute: '2-digit'
               });
 
               const paymentDate = adm.payment_submission_time 
@@ -184,61 +174,60 @@ export default function AdminStudentsPage() {
                     month: 'short',
                     year: 'numeric',
                     hour: '2-digit',
-                    minute: '2-digit',
+                    minute: '2-digit'
                   })
                 : 'N/A';
 
               const isActioning = actionId === adm.id;
 
               return (
-                <div key={adm.id} className="border border-border/80 rounded-xl p-5 hover:border-accent transition-colors flex flex-col lg:flex-row justify-between gap-6">
-                  {/* Left Specs */}
+                <div key={adm.id} className="border border-border-light rounded p-5 hover:ambient-shadow transition-shadow flex flex-col lg:flex-row justify-between gap-6 bg-surface/10">
+                  
+                  {/* Left Metadata Info */}
                   <div className="space-y-3 flex-grow text-left">
                     <div className="flex flex-wrap items-center gap-3">
-                      <h4 className="font-display font-bold text-lg text-primary">
-                        {adm.profiles?.full_name || 'Anonymous Student'}
+                      <h4 className="font-manrope font-bold text-lg text-primary">
+                        {adm.profiles?.full_name || 'Aspirant Student'}
                       </h4>
                       <span className={`inline-flex px-2.5 py-0.5 rounded-full text-[9px] uppercase font-bold border ${
-                        adm.status === 'pending'
-                          ? 'bg-slate-50 border-slate-200 text-slate-500'
+                        adm.status === 'approved'
+                          ? 'bg-success/10 border-success/30 text-success'
                           : adm.status === 'pending_verification'
-                          ? 'bg-amber-50 border-amber-200 text-amber-600'
-                          : adm.status === 'approved'
-                          ? 'bg-emerald-50 border-emerald-200 text-emerald-600'
-                          : 'bg-red-50 border-red-200 text-red-600'
+                          ? 'bg-focus-teal/10 border-focus-teal/30 text-focus-teal'
+                          : 'bg-primary/5 border-border-light text-primary/45'
                       }`}>
-                        {adm.status}
+                        {adm.status === 'pending_verification' ? 'Pending Audit' : adm.status}
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-muted font-medium">
-                      <a href={`tel:${adm.profiles?.phone}`} className="flex items-center gap-2 hover:text-accent font-semibold text-primary/80">
-                        <Phone className="h-4 w-4 text-accent shrink-0" />
-                        <span>+91 {adm.profiles?.phone || 'not_provided'}</span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-semibold text-primary/75">
+                      <a href={`tel:${adm.profiles?.phone}`} className="flex items-center gap-2 hover:text-focus-teal">
+                        <PhoneCall className="h-4 w-4 text-focus-teal shrink-0" />
+                        <span>+91 {adm.profiles?.phone}</span>
                       </a>
                       {adm.profiles?.email && (
-                        <a href={`mailto:${adm.profiles?.email}`} className="flex items-center gap-2 hover:text-accent font-semibold text-primary/80">
-                          <Mail className="h-4 w-4 text-accent shrink-0" />
+                        <a href={`mailto:${adm.profiles?.email}`} className="flex items-center gap-2 hover:text-focus-teal">
+                          <Mail className="h-4 w-4 text-focus-teal shrink-0" />
                           <span>{adm.profiles?.email}</span>
                         </a>
                       )}
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-border/40 text-xs">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-border-light/60 text-xs">
                       <div>
-                        <span className="text-muted block text-[10px] uppercase font-bold tracking-wider font-body">Registration Time</span>
-                        <span className="text-primary font-semibold block mt-0.5">{regDate}</span>
+                        <span className="text-primary/45 block text-[9px] uppercase tracking-wider">Registration Date</span>
+                        <span className="font-bold block mt-0.5">{regDate}</span>
                       </div>
                       <div>
-                        <span className="text-muted block text-[10px] uppercase font-bold tracking-wider font-body">Payment Submission</span>
-                        <span className="text-primary font-semibold block mt-0.5">
+                        <span className="text-primary/45 block text-[9px] uppercase tracking-wider">Manual Payment Submission</span>
+                        <span className="font-bold block mt-0.5">
                           {adm.payment_submitted ? (
-                            <span className="text-amber-600 flex items-center gap-1">
+                            <span className="text-focus-teal flex items-center gap-1">
                               <Clock className="h-3.5 w-3.5" />
                               {paymentDate}
                             </span>
                           ) : (
-                            <span className="text-slate-400">Unsubmitted</span>
+                            <span className="text-primary/30">Not Submitted</span>
                           )}
                         </span>
                       </div>
@@ -250,39 +239,39 @@ export default function AdminStudentsPage() {
                           href={adm.documents_url[0]}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs text-accent hover:underline font-bold"
+                          className="inline-flex items-center gap-1.5 text-xs text-focus-teal hover:underline font-bold"
                         >
                           <FileText className="h-4 w-4 shrink-0" />
-                          View Submitted Marksheet Document
+                          Examine Submitted Marksheet Document Link
                         </a>
                       </div>
                     )}
                   </div>
 
-                  {/* Right Target Program & Actions */}
-                  <div className="flex flex-col justify-between items-stretch lg:items-end shrink-0 gap-6 lg:text-right">
+                  {/* Program Info & Audit Controls */}
+                  <div className="flex flex-col justify-between items-stretch lg:items-end shrink-0 gap-6 lg:text-right font-semibold">
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-muted block font-body">Target Course Program</span>
-                      <span className="text-primary font-bold text-sm block mt-0.5">{adm.courses?.title || 'Unknown Course'}</span>
-                      <span className="px-2 py-0.5 text-[9px] uppercase font-bold bg-surface border border-accent/20 text-accent rounded-full mt-1.5 inline-block">
+                      <span className="text-primary/45 block text-[9px] uppercase">Target Course Program</span>
+                      <span className="text-primary font-bold text-sm block mt-0.5">{adm.courses?.title || 'Entrance Program'}</span>
+                      <span className="px-2.5 py-0.5 text-[9px] font-bold bg-focus-teal/10 text-focus-teal rounded-full mt-1.5 inline-block uppercase">
                         {adm.courses?.category}
                       </span>
                     </div>
 
-                    {/* Approve / Reject Actions */}
+                    {/* Approve / Reject Controls */}
                     <div className="flex gap-2.5">
                       {adm.status !== 'approved' && (
                         <button
                           onClick={() => handleUpdateStatus(adm.id, 'approved')}
                           disabled={isActioning}
-                          className="btn-primary min-h-[40px] py-1 px-4 text-xs bg-emerald-600 hover:bg-emerald-700 border-none flex items-center gap-1.5 font-bold shadow-sm"
+                          className="bg-success hover:bg-primary text-surface-white font-manrope font-bold py-2.5 px-4 rounded text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm focus-ring"
                         >
                           {isActioning ? (
                             <Loader2 className="h-3.5 w-3.5 animate-spin" />
                           ) : (
                             <Check className="h-3.5 w-3.5" />
                           )}
-                          Approve Payment
+                          Approve
                         </button>
                       )}
 
@@ -290,27 +279,28 @@ export default function AdminStudentsPage() {
                         <button
                           onClick={() => handleUpdateStatus(adm.id, 'rejected')}
                           disabled={isActioning}
-                          className="btn-secondary min-h-[40px] py-1 px-4 text-xs border-red-200 text-red-600 hover:bg-red-50 flex items-center gap-1.5 font-bold bg-white shadow-sm"
+                          className="border border-border-light hover:border-error hover:text-error bg-surface-white text-primary/60 font-manrope font-bold py-2.5 px-4 rounded text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm focus-ring"
                         >
                           {isActioning ? (
                             <Loader2 className="h-3.5 w-3.5 animate-spin" />
                           ) : (
                             <X className="h-3.5 w-3.5" />
                           )}
-                          Reject Payment
+                          Reject
                         </button>
                       )}
                     </div>
                   </div>
+
                 </div>
               );
             })}
           </div>
         ) : (
-          <div className="py-20 text-center text-muted font-medium text-xs border border-dashed border-border rounded-xl">
+          <div className="py-20 text-center text-primary/45 text-xs font-semibold border border-dashed border-border-light rounded">
             <div className="flex flex-col items-center justify-center space-y-2">
-              <UserCheck className="h-8 w-8 text-amber-500" />
-              <span>No registrations match your search criteria.</span>
+              <UserCheck className="h-8 w-8 text-focus-teal" />
+              <span>No registrations match search metrics.</span>
             </div>
           </div>
         )}
