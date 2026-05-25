@@ -56,6 +56,12 @@ export default function SignupPage() {
         throw authError;
       }
 
+      if (data.session) {
+        router.push('/dashboard');
+        router.refresh();
+        return;
+      }
+
       setSignedUp(true);
     } catch (err: any) {
       setError(err.message || 'Registration failed. Please try again.');

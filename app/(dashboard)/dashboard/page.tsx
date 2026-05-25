@@ -29,11 +29,21 @@ export default async function StudentDashboardPage() {
   }
 
   // Load student profile
-  const { data: profile } = await supabase
+  let { data: profile } = await supabase
     .from('profiles')
     .select('*')
     .eq('user_id', user.id)
     .maybeSingle();
+
+  if (!profile && user.email) {
+    const { data: emailProfile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('email', user.email)
+      .maybeSingle();
+
+    profile = emailProfile;
+  }
 
   // Load admissions applications
   let studentAdmissions: any[] = [];
@@ -64,7 +74,7 @@ export default async function StudentDashboardPage() {
       {/* Welcome Board */}
       <header className="space-y-2">
         <h1 className="font-manrope text-2xl md:text-4xl font-extrabold text-primary tracking-tight">
-          Welcome Back, {profile?.full_name || 'Student'}!
+          Welcome Back, {profile?.full_name || user.user_metadata?.full_name || user.email || 'Student'}!
         </h1>
         <p className="text-sm text-primary/60">
           Track admissions audits, review batch timing updates, and view campus cabin coordinates opposite Pillar 80 Karol Bagh.

@@ -8,6 +8,7 @@ export async function middleware(request: NextRequest) {
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ihidmclkugsmoygegipp.supabase.co';
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloaWRtY2xrdWdzbW95Z2VnaXBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1NDQ1NTQsImV4cCI6MjA5NTEyMDU1NH0.wx4UylX3Bm3Ku4m7scftIE5wntj3x1ELS5zNXtCbX6Q';
+  const adminEmail = (process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'ctcampus2019@gmail.com').toLowerCase();
 
   const supabase = createServerClient(
     supabaseUrl,
@@ -48,6 +49,11 @@ export async function middleware(request: NextRequest) {
   if (path.startsWith('/admin') && path !== '/admin/login') {
     if (!user) {
       return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+
+    const userEmail = (user.email || '').toLowerCase();
+    if (userEmail === adminEmail) {
+      return response;
     }
 
     // Edge-compatible direct REST API check to verify user profile role

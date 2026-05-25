@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { Send, CheckCircle2, AlertCircle, Loader2, Lock } from 'lucide-react';
+import { Send, AlertCircle, Loader2, Lock } from 'lucide-react';
 
 interface Course {
   id: string;
@@ -47,20 +47,6 @@ export default function AdmissionForm({ courses }: AdmissionFormProps) {
     loadUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleGoogleAutofill = async () => {
-    try {
-      const { error: oAuthError } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=/fees`,
-        },
-      });
-      if (oAuthError) throw oAuthError;
-    } catch (err: any) {
-      setError(err.message || 'Google Sign In failed.');
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -114,30 +100,6 @@ export default function AdmissionForm({ courses }: AdmissionFormProps) {
 
   return (
     <div className="space-y-6">
-      {/* Google Sign In Autofill Button */}
-      <button
-        type="button"
-        onClick={handleGoogleAutofill}
-        className="w-full flex items-center justify-center gap-3 px-4 py-3.5 border border-border-light rounded bg-surface hover:bg-surface-container text-primary font-manrope font-bold text-sm transition-all focus-ring shadow-sm"
-      >
-        <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21.35,11.1H12v2.7h5.38c-0.24,1.28 -0.96,2.37 -2.04,3.1v2.58h3.3c1.93,-1.78 3.04,-4.4 3.04,-7.4C21.68,11.83 21.57,11.45 21.35,11.1z" fill="#4285F4" />
-          <path d="M12,20.62c2.61,0 4.8,-0.87 6.4,-2.36l-3.3,-2.58c-0.91,0.61 -2.08,0.98 -3.1,0.98 -2.39,0 -4.41,-1.61 -5.13,-3.78H3.45v2.66C5.07,18.84 8.35,20.62 12,20.62z" fill="#34A853" />
-          <path d="M6.87,12.88c-0.18,-0.54 -0.29,-1.11 -0.29,-1.7 0,-0.59 0.11,-1.16 0.29,-1.7V6.82H3.45C2.83,8.08 2.48,9.5 2.48,11c0,1.5 0.35,2.92 0.97,4.18l3.42,-2.3z" fill="#FBBC05" />
-          <path d="M12,6.38c1.42,0 2.7,0.49 3.7,1.44l2.78,-2.78C16.8,3.52 14.61,2.62 12,2.62c-3.65,0 -6.93,1.78 -8.55,4.2L6.87,9.12C7.59,6.95 9.61,5.38 12,6.38z" fill="#EA4335" />
-        </svg>
-        <span>Quick Apply with Google OAuth</span>
-      </button>
-
-      <div className="relative flex items-center justify-center my-6">
-        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-border-light" />
-        </div>
-        <div className="relative flex justify-center text-xs">
-          <span className="bg-surface-white px-3 text-primary/45 uppercase tracking-widest font-semibold font-worksans">Or Fill Form Manually</span>
-        </div>
-      </div>
-
       <form onSubmit={handleSubmit} className="space-y-6 text-left font-worksans">
         {/* Honeypot field */}
         <div className="hidden" aria-hidden="true">
@@ -324,4 +286,3 @@ export default function AdmissionForm({ courses }: AdmissionFormProps) {
     </div>
   );
 }
-

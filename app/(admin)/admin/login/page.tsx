@@ -16,6 +16,7 @@ function AdminLoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
+  const adminEmail = (process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'ctcampus2019@gmail.com').toLowerCase();
 
   useEffect(() => {
     // Check if query params reported unauthorized access
@@ -53,7 +54,9 @@ function AdminLoginForm() {
         .eq('user_id', session.user.id)
         .maybeSingle();
 
-      if (profileError || !profile || profile.role !== 'admin') {
+      const isConfiguredAdmin = session.user.email?.toLowerCase() === adminEmail;
+
+      if (!isConfiguredAdmin && (profileError || !profile || profile.role !== 'admin')) {
         // Sign out if authenticated user is not an admin
         await supabase.auth.signOut();
         throw new Error('Access Denied: Your profile role is registered as student.');

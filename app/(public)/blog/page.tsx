@@ -15,7 +15,7 @@ export const metadata = generatePageMetadata({
 
 // Fallback blog seeds if database is empty
 const fallbackBlogs = [
-  { title: 'Complete CLAT Preparation Strategy 2025-26', slug: 'complete-clat-preparation-strategy-2025-26', excerpt: 'The definitive roadmap for law aspirants. Learn the exact passage-solving techniques, reading speedups, and mock analysis models to crack CLAT.', category: 'CLAT', created_at: new Date().toISOString() },
+  { title: 'Complete CLAT Preparation Strategy 2026', slug: 'complete-clat-preparation-strategy-2026', excerpt: 'The definitive roadmap for law aspirants. Learn the exact passage-solving techniques, reading speedups, and mock analysis models to crack CLAT.', category: 'CLAT', created_at: new Date().toISOString() },
   { title: 'How to Crack IPMAT in 6 Months', slug: 'how-to-crack-ipmat-in-6-months', excerpt: 'Step-by-step 6-month roadmap detailing advanced quant topics, reading comprehension drills, and WAT/PI interview prep guided by IIM alumni.', category: 'IPMAT', created_at: new Date().toISOString() },
   { title: 'CUET Subject Selection Guide', slug: 'cuet-subject-selection-guide', excerpt: 'Avoid application rejection. Learn the strict eligibility combinations for DU and BHU courses, NCERT domain choices, and General Test setups.', category: 'CUET', created_at: new Date().toISOString() },
 ];

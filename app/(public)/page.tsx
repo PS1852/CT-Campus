@@ -73,7 +73,7 @@ export default async function HomePage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-success/10 text-success font-semibold text-xs mb-8 uppercase tracking-wider animate-fade-in-up">
             <Sparkles className="h-4.5 w-4.5 text-focus-teal" />
-            Admissions Open 2024-2025
+            Admissions Open 2026
           </div>
 
           {/* Heading */}

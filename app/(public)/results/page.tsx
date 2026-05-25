@@ -10,12 +10,12 @@ export const metadata = generatePageMetadata({
 });
 
 const results = [
-  { student: 'Pranav Malhotra', rank: 'AIR 12 — CLAT 2025', college: 'Admitted: NLSIU Bangalore', quote: 'The 1-on-1 strategy sessions with Abhinav Sir transformed my mock analysis. I went from scoring 70 to clearing 105+ in the actual CLAT paper.' },
-  { student: 'Ananya Deshmukh', rank: 'AIR 5 — IPMAT Indore 2025', college: 'Admitted: IIM Indore (IPM)', quote: 'The maths short-answers section was my nightmare. Dr. Shruti gave me calc shortcuts that saved my quantitative score completely.' },
-  { student: 'Meera Sengupta', rank: '100% Percentile — CUET 2025', college: 'Admitted: B.A. LLB (Hons) Delhi University', quote: 'CT Campus guided me in subject selection so perfectly. Mapped my domains with NCERT and General Test perfectly.' },
-  { student: 'Rohan Talwar', rank: 'AIR 34 — CLAT 2025', college: 'Admitted: NALSAR Hyderabad', quote: 'Restricted batch sizes meant Kabir Sir had eyes on my logical reasoning reading habits every single day.' },
-  { student: 'Tanmay Kapoor', rank: 'AIR 18 — IPMAT Rohtak 2025', college: 'Admitted: IIM Rohtak (IPM)', quote: 'WAT/PI mock interviews conducted by actual IIM directors gave me the ultimate confidence boost before the panel.' },
-  { student: 'Ishita Roy', rank: 'AIR 89 — CLAT 2025', college: 'Admitted: WBNUJS Kolkata', quote: 'The silent study library cabins were a lifesaver. Kept me focused opposite Metro Pillar 80 Karol Bagh!' },
+  { student: 'Pranav Malhotra', rank: 'AIR 12 — CLAT 2026', college: 'Admitted: NLSIU Bangalore', quote: 'The 1-on-1 strategy sessions with Abhinav Sir transformed my mock analysis. I went from scoring 70 to clearing 105+ in the actual CLAT paper.' },
+  { student: 'Ananya Deshmukh', rank: 'AIR 5 — IPMAT Indore 2026', college: 'Admitted: IIM Indore (IPM)', quote: 'The maths short-answers section was my nightmare. Dr. Shruti gave me calc shortcuts that saved my quantitative score completely.' },
+  { student: 'Meera Sengupta', rank: '100% Percentile — CUET 2026', college: 'Admitted: B.A. LLB (Hons) Delhi University', quote: 'CT Campus guided me in subject selection so perfectly. Mapped my domains with NCERT and General Test perfectly.' },
+  { student: 'Rohan Talwar', rank: 'AIR 34 — CLAT 2026', college: 'Admitted: NALSAR Hyderabad', quote: 'Restricted batch sizes meant Kabir Sir had eyes on my logical reasoning reading habits every single day.' },
+  { student: 'Tanmay Kapoor', rank: 'AIR 18 — IPMAT Rohtak 2026', college: 'Admitted: IIM Rohtak (IPM)', quote: 'WAT/PI mock interviews conducted by actual IIM directors gave me the ultimate confidence boost before the panel.' },
+  { student: 'Ishita Roy', rank: 'AIR 89 — CLAT 2026', college: 'Admitted: WBNUJS Kolkata', quote: 'The silent study library cabins were a lifesaver. Kept me focused opposite Metro Pillar 80 Karol Bagh!' },
 ];
 
 export default function ResultsPage() {
