@@ -14,9 +14,9 @@ export const metadata = generatePageMetadata({
 
 // Fallback courses database
 const fallbackCourses = [
-  { title: 'CLAT Mastery Program', slug: 'clat-coaching-delhi', description: 'Our flagship comprehensive law entrance mentorship program. Designed specifically for CLAT and AILET, this module covers logical reasoning, legal aptitude, English vocabulary, quantitative techniques, and current affairs.', fee: 14999, duration: '1 Year', category: 'CLAT' },
-  { title: 'IPMAT Excellence Program', slug: 'best-ipmat-coaching-delhi', description: 'Integrated Program in Management Aptitude Test prep module. Designed for IIM Indore, Rohtak, and Ranchi. Rigorous preparation on Quant, Verbal, and intensive interview preparation (WAT/PI).', fee: 19999, duration: '1 Year', category: 'IPMAT' },
-  { title: 'CUET Foundation Course', slug: 'best-cuet-coaching-delhi', description: 'Targeted subject-matter and general test coaching for Central University Entrance Test (CUET) covering Domain-specific subjects and General Aptitude.', fee: 11999, duration: '6 Months', category: 'CUET' },
+  { title: 'CLAT Mastery Program', slug: 'clat-coaching-delhi', description: 'Our flagship comprehensive law entrance mentorship program. Designed specifically for CLAT and AILET, this module covers logical reasoning, legal aptitude, English vocabulary, quantitative techniques, and current affairs.', fee: 50000, duration: '1 Year', category: 'CLAT' },
+  { title: 'IPMAT Excellence Program', slug: 'best-ipmat-coaching-delhi', description: 'Integrated Program in Management Aptitude Test prep module. Designed for IIM Indore, Rohtak, and Ranchi. Rigorous preparation on Quant, Verbal, and intensive interview preparation (WAT/PI).', fee: 80000, duration: '1 Year', category: 'IPMAT' },
+  { title: 'CUET Foundation Course', slug: 'best-cuet-coaching-delhi', description: 'Targeted subject-matter and general test coaching for Central University Entrance Test (CUET) covering Domain-specific subjects and General Aptitude.', fee: 30000, duration: '6 Months', category: 'CUET' },
 ];
 
 export default async function CoursesPage() {

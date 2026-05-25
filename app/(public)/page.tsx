@@ -18,9 +18,9 @@ import {
 
 // Real fallbacks mapping NLU schemas and pricing
 const fallbackCourses = [
-  { title: 'CLAT Mastery Program', slug: 'clat-coaching-delhi', description: 'Comprehensive preparation for Common Law Admission Test with intensive focus on legal reasoning and critical reading modules.', fee: 14999, duration: '1 Year', category: 'CLAT' },
-  { title: 'IPMAT Excellence Program', slug: 'best-ipmat-coaching-delhi', description: 'Integrated Program in Management Aptitude Test prep focusing on advanced quantitative, logical, and verbal abilities.', fee: 19999, duration: '1 Year', category: 'IPMAT' },
-  { title: 'CUET Foundation Course', slug: 'best-cuet-coaching-delhi', description: 'Common University Entrance Test preparation aligning perfectly with CBSE boards and domain-specific tests.', fee: 11999, duration: '6 Months', category: 'CUET' },
+  { title: 'CLAT Mastery Program', slug: 'clat-coaching-delhi', description: 'Comprehensive preparation for Common Law Admission Test with intensive focus on legal reasoning and critical reading modules.', fee: 50000, duration: '1 Year', category: 'CLAT' },
+  { title: 'IPMAT Excellence Program', slug: 'best-ipmat-coaching-delhi', description: 'Integrated Program in Management Aptitude Test prep focusing on advanced quantitative, logical, and verbal abilities.', fee: 80000, duration: '1 Year', category: 'IPMAT' },
+  { title: 'CUET Foundation Course', slug: 'best-cuet-coaching-delhi', description: 'Common University Entrance Test preparation aligning perfectly with CBSE boards and domain-specific tests.', fee: 30000, duration: '6 Months', category: 'CUET' },
 ];
 
 export const revalidate = 3600; // incremental static regeneration every hour
