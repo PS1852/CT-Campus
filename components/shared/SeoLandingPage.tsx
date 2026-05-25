@@ -83,7 +83,7 @@ export default async function SeoLandingPage({
                 Request Scholarship Options
               </h3>
               <p className="text-xs text-muted mb-6">
-                Enter your details to schedule your strategic diagnostic mocks session opposite Pillar 80 Karol Bagh.
+                Enter your details to enquire about admissions, diagnostic mock options, and current batch timing availability.
               </p>
               <HomeInquiryForm courses={courses} />
             </div>

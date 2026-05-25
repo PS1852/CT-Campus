@@ -42,7 +42,7 @@ export default async function ContactPage() {
             Connect With Our Mentors
           </h1>
           <p className="text-sm md:text-base text-primary/60 leading-relaxed">
-            Have queries regarding class schedules, silent study library cabins, or installment choices? Connect with our Karol Bagh center coordinates immediately.
+            Have queries regarding class timing options, admissions, or installment choices? Connect with our Karol Bagh center team directly.
           </p>
         </header>
 

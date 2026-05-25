@@ -101,7 +101,7 @@ export default async function AdmissionsPage() {
           <div>
             <h3 className="font-manrope text-lg font-bold text-surface-white">Need Registration Help?</h3>
             <p className="text-xs md:text-sm text-surface-container/60 leading-relaxed mt-2">
-              Contact our Karol Bagh helpdesk if you run into files upload glitches or have queries regarding installment schedules.
+              Contact our Karol Bagh helpdesk if you run into file upload issues or want current timing and installment details.
             </p>
           </div>
           <div className="space-y-2 pt-4 border-t border-surface-container/10 text-xs">

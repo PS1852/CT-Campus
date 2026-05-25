@@ -94,7 +94,7 @@ export default function HomeInquiryForm({ courses }: HomeInquiryFormProps) {
         </div>
         <h4 className="font-manrope text-2xl font-bold text-primary">Inquiry Received!</h4>
         <p className="text-sm text-primary/60 max-w-sm">
-          An academic director from our Karol Bagh campus will call you on your WhatsApp number within 30 minutes to schedule your strategic mockup session.
+          An academic director from our Karol Bagh campus will call you on your WhatsApp number to discuss admissions, batch timing options, and next steps.
         </p>
         <button
           onClick={() => setSuccess(false)}

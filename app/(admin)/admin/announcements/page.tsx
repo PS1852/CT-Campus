@@ -20,7 +20,7 @@ export default async function AdminAnnouncementsPage() {
           Banners & Announcements
         </h1>
         <p className="text-sm text-muted">
-          Broadcast alerts regarding holiday calendars, scholarship exams, and new intakes schedules.
+          Broadcast alerts regarding holiday notices, scholarship exams, and new intake enquiries.
         </p>
       </div>
 

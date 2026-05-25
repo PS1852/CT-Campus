@@ -107,7 +107,7 @@ export default async function CoursesPage() {
                     ₹{course.fee ? course.fee.toLocaleString('en-IN') : 'N/A'}
                   </span>
                   <span className="text-[10px] text-primary/45 block">
-                    *Installment schedules open upon request
+                    *Installment plans available on enquiry
                   </span>
                 </div>
 
@@ -131,16 +131,16 @@ export default async function CoursesPage() {
           ))}
         </main>
 
-        {/* Custom batch schedules banner */}
+        {/* Custom batch enquiry banner */}
         <section className="bg-primary text-surface-white rounded-lg p-8 md:p-12 text-center relative overflow-hidden">
           <div className="max-w-2xl mx-auto space-y-6">
             <h3 className="font-manrope text-2xl md:text-3xl font-bold">Custom Strategic Routines</h3>
             <p className="text-sm text-surface-container/60 leading-relaxed">
-              We allocate dedicated morning dropouts, evening post-school slots, and focused weekend tracks to conform to varying schedules. Let our academic advisors map a customized routine for you.
+              Current batch slots vary by program, intake, and faculty availability. Contact our academic advisors to enquire about the latest class timing options.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
               <a
-                href={`https://wa.me/91${supportPhone}?text=Hi%20CT%20Campus%20Mentor,%20I'm%20interested%20in%20custom%20batch%20timings%20for%20the%20coaching%20programs.`}
+                href={`https://wa.me/91${supportPhone}?text=Hi%20CT%20Campus%20Mentor,%20I'm%20interested%20in%20current%20batch%20timing%20options%20for%20the%20coaching%20programs.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-focus-teal hover:bg-secondary text-surface-white font-manrope font-bold py-3.5 px-6 rounded transition-colors flex items-center justify-center gap-2 focus-ring"

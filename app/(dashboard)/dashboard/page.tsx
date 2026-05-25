@@ -1,6 +1,6 @@
 import React from 'react';
 import { createClient } from '@/lib/supabase/server';
-import { GraduationCap, Award, BookOpen, Clock, FileText, AlertCircle, Calendar, MessageSquare, PhoneCall, QrCode, Mail } from 'lucide-react';
+import { FileText, AlertCircle, Calendar, PhoneCall, QrCode, Mail } from 'lucide-react';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
@@ -77,7 +77,7 @@ export default async function StudentDashboardPage() {
           Welcome Back, {profile?.full_name || user.user_metadata?.full_name || user.email || 'Student'}!
         </h1>
         <p className="text-sm text-primary/60">
-          Track admissions audits, review batch timing updates, and view campus cabin coordinates opposite Pillar 80 Karol Bagh.
+          Track admissions audits, review batch updates, and contact the campus desk for current class timing details.
         </p>
       </header>
 
@@ -161,10 +161,10 @@ export default async function StudentDashboardPage() {
             
             <div className="border border-border-light rounded p-6 bg-surface/30 text-center space-y-3 font-semibold">
               <p className="text-xs text-primary/60 leading-relaxed">
-                Your personal exam prep timetable calendar is currently under scheduling. Once manual QR payment settles and document audit verifies, class calendar tracks will load instantly.
+                Your personal exam prep timetable is coordinated by the academic desk after payment verification. Please enquire with the center team for current batch timings.
               </p>
-              <div className="text-[10px] text-focus-teal uppercase tracking-widest pt-2">Standard Batch Timings:</div>
-              <p className="text-xs text-primary/80">Morning Cohorts (8:30 AM - 11:30 AM) | Evening Cohorts (4:30 PM - 7:30 PM)</p>
+              <div className="text-[10px] text-focus-teal uppercase tracking-widest pt-2">Batch Timing Enquiry</div>
+              <p className="text-xs text-primary/80">Contact the CT CAMPUS helpdesk for the latest available weekday and weekend class slots.</p>
             </div>
           </div>
 
@@ -173,20 +173,6 @@ export default async function StudentDashboardPage() {
         {/* Right Column: Cabin Allocation & Helpline Cards */}
         <div className="lg:col-span-4 space-y-6 text-left">
           
-          {/* Silent study cabin cards */}
-          <div className="bg-primary text-surface-white rounded-lg p-6 md:p-8 space-y-4">
-            <div className="bg-surface-white text-primary p-2.5 rounded inline-flex items-center justify-center h-10 w-10">
-              <GraduationCap className="h-6 w-6 text-focus-teal" />
-            </div>
-            <h4 className="font-manrope text-lg font-bold">Silent Library Cabins Allocation</h4>
-            <p className="text-xs text-surface-container/60 leading-relaxed">
-              Every strategic enrolee obtains personal AC sound-damped study cabin allocations at our WEA Karol Bagh campus for peaceful mocks practice and notes cataloging.
-            </p>
-            <div className="pt-2 text-xs font-bold text-focus-teal flex items-center gap-1.5 border-t border-surface-container/10">
-              <Clock className="h-4 w-4" /> Open Hours: Mon - Sun, 9AM - 8PM
-            </div>
-          </div>
-
           {/* Mentorship Hotline */}
           <div className="bg-surface-white border border-border-light rounded p-6 shadow-sm space-y-3 font-semibold text-xs text-primary/60">
             <h4 className="font-manrope text-sm font-bold text-primary border-b border-border-light pb-2">

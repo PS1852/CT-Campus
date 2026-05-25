@@ -256,7 +256,7 @@ export default async function HomePage() {
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4 text-left">
               <div>
                 <h2 className="font-manrope text-3xl font-bold text-primary">Strategic Exam Insights</h2>
-                <p className="text-sm text-primary/60 mt-2">Latest strategic inputs, patterns analyses, and schedules from our coaching expert panel.</p>
+                <p className="text-sm text-primary/60 mt-2">Latest strategic inputs, pattern analyses, and admissions guidance from our coaching expert panel.</p>
               </div>
             </div>
 

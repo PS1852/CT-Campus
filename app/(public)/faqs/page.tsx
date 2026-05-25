@@ -78,7 +78,7 @@ export default async function FaqsPage() {
         <section className="mt-16 bg-primary text-surface-white rounded-lg p-8 md:p-12 text-center space-y-6">
           <h3 className="font-manrope text-2xl font-bold">Have Unresolved Questions?</h3>
           <p className="text-sm text-surface-container/60 max-w-md mx-auto leading-relaxed">
-            Our strategic mentors are active to clear your batch alignments, timing shifts, hostel bookings, or subject domain selections directly.
+            Our strategic mentors can help with batch alignment, timing enquiries, hostel bookings, or subject domain selections directly.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
             <a
