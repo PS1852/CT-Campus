@@ -55,7 +55,7 @@ export default async function ContactPage() {
                 { icon: MapPin, title: 'Campus Address', details: '5th Floor, 18/13 WEA, Karol Bagh, Behind Starbucks, Pusa Road, Opp. Pillar No. 80, Near Karur Vysya Bank, New Delhi – 110005' },
                 { icon: Clock, title: 'Center Timings', details: 'Monday to Sunday\n9:00 AM to 8:00 PM\n(All Days Open)' },
                 { icon: Phone, title: 'Direct Phone', details: `+91 ${supportPhone}\n(Call / WhatsApp)` },
-                { icon: Mail, title: 'Email Address', details: `${coachingEmail}\nadmissions@ctcampus.co.in` },
+                { icon: Mail, title: 'Email Address', details: `${coachingEmail}` },
               ].map((item, idx) => {
                 const Icon = item.icon;
                 return (

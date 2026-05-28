@@ -106,7 +106,7 @@ export default async function HomePage() {
           {/* Trust Indicators / Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 pt-10 border-t border-border-light max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="font-manrope text-3xl font-extrabold text-primary mb-1">98%</div>
+              <div className="font-manrope text-3xl font-extrabold text-primary mb-1">95%</div>
               <div className="text-xs text-primary/60 uppercase tracking-widest font-semibold">Selection Rate</div>
             </div>
             <div className="text-center">
