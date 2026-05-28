@@ -1,8 +1,9 @@
 import React from 'react';
 import { createClient } from '@/lib/supabase/server';
-import { generatePageMetadata } from '@/lib/seo/metadata';
+import { generatePageMetadata, getFaqPageSchema } from '@/lib/seo/metadata';
 import Link from 'next/link';
 import { HelpCircle, MessageSquare, ChevronRight, HelpCircle as AskIcon } from 'lucide-react';
+import JsonLd from '@/components/shared/JsonLd';
 
 export const metadata = generatePageMetadata({
   title: 'Seeded FAQ Bank & Course Queries | CT CAMPUS',
@@ -29,7 +30,9 @@ export default async function FaqsPage() {
   const faqs = dbFaqs && dbFaqs.length > 0 ? dbFaqs : fallbackFaqs;
 
   return (
-    <div className="py-20 bg-background font-worksans text-primary flex flex-col items-center">
+    <>
+      <JsonLd schema={getFaqPageSchema(faqs)} />
+      <div className="py-20 bg-background font-worksans text-primary flex flex-col items-center">
       <div className="w-full max-w-[800px] px-margin-mobile md:px-0">
         
         {/* Header Section */}
@@ -101,5 +104,6 @@ export default async function FaqsPage() {
 
       </div>
     </div>
+    </>
   );
 }

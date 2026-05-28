@@ -1,8 +1,9 @@
 import React from 'react';
-import { generatePageMetadata } from '@/lib/seo/metadata';
+import { generatePageMetadata, getLocalBusinessSchema } from '@/lib/seo/metadata';
 import { MapPin, Phone, Mail, Clock, Map, Landmark } from 'lucide-react';
 import HomeInquiryForm from '@/components/sections/HomeInquiryForm';
 import { createClient } from '@/lib/supabase/server';
+import JsonLd from '@/components/shared/JsonLd';
 
 export const metadata = generatePageMetadata({
   title: 'Contact Us & Campus Directions | CT CAMPUS Karol Bagh',
@@ -70,10 +71,13 @@ export default async function ContactPage() {
               })}
             </div>
 
+            {/* Local Business Rich Snippet Schema Injection */}
+            <JsonLd schema={getLocalBusinessSchema()} />
+
             {/* Embedded Google Maps Widget */}
             <div className="border border-border-light rounded overflow-hidden shadow-sm bg-surface-white">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.4431872124535!2d77.1900339!3d28.6464426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d05daf453e4eb%3A0xea6359e0f3d640b3!2sCT%20Campus!5e0!3m2!1sen!2sin!4v1716912345678!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.4889166687483!2d77.1922226!3d28.6450779!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d05daf453e4eb%3A0xea6359e0f3d640b3!2sCT%20Campus!5e0!3m2!1sen!2sin!4v1716912345678!5m2!1sen!2sin"
                 width="100%"
                 height="360"
                 style={{ border: 0 }}

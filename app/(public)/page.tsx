@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+import JsonLd from '@/components/shared/JsonLd';
+import { getOrganizationSchema, getLocalBusinessSchema } from '@/lib/seo/metadata';
 import { 
   BookOpen, 
   Award, 
@@ -55,7 +57,10 @@ export default async function HomePage() {
     .limit(4);
 
   return (
-    <div className="bg-background min-h-screen font-worksans text-primary antialiased">
+    <>
+      <JsonLd schema={getOrganizationSchema()} />
+      <JsonLd schema={getLocalBusinessSchema()} />
+      <div className="bg-background min-h-screen font-worksans text-primary antialiased">
       {/* HERO SECTION */}
       <section className="relative pt-20 pb-32 overflow-hidden bg-surface-white border-b border-border-light">
         <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]">
@@ -336,5 +341,6 @@ export default async function HomePage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

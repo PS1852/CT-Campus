@@ -1,9 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { generatePageMetadata } from '@/lib/seo/metadata';
+import { generatePageMetadata, getFaqPageSchema, getBreadcrumbSchema } from '@/lib/seo/metadata';
 import { MapPin, PhoneCall, CheckCircle2, Trophy, Clock, GraduationCap, ArrowRight } from 'lucide-react';
 import HomeInquiryForm from '@/components/sections/HomeInquiryForm';
+import JsonLd from '@/components/shared/JsonLd';
 
 interface SeoLandingPageProps {
   category: 'CLAT' | 'IPMAT' | 'CUET' | 'Foundation';
@@ -44,8 +45,19 @@ export default async function SeoLandingPage({
     .eq('is_active', true)
     .limit(4);
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', item: '/' },
+    { name: category, item: `/courses` },
+    { name: keywordTitle, item: slug },
+  ]);
+
   return (
-    <div className="bg-background text-left">
+    <>
+      <JsonLd schema={breadcrumbSchema} />
+      {faqs && faqs.length > 0 && (
+        <JsonLd schema={getFaqPageSchema(faqs)} />
+      )}
+      <div className="bg-background text-left">
       {/* LOCAL HERO SECTION */}
       <section className="relative overflow-hidden bg-surface py-16 sm:py-24 border-b border-border">
         <div className="absolute inset-0 glow-gradient pointer-events-none" />
@@ -190,5 +202,6 @@ export default async function SeoLandingPage({
         </div>
       </section>
     </div>
+    </>
   );
 }

@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { generatePageMetadata } from '@/lib/seo/metadata';
+import { generatePageMetadata, getCourseSchema } from '@/lib/seo/metadata';
 import { Clock, ChevronRight, CheckCircle2, QrCode } from 'lucide-react';
+import JsonLd from '@/components/shared/JsonLd';
 
 export const revalidate = 3600; // recalculate static page caches
 
@@ -35,7 +36,19 @@ export default async function CoursesPage() {
   const courses = dbCourses && dbCourses.length > 0 ? dbCourses : fallbackCourses;
 
   return (
-    <div className="py-20 bg-background font-worksans text-primary flex flex-col items-center">
+    <>
+      {courses.map((course: any) => (
+        <JsonLd
+          key={course.slug}
+          schema={getCourseSchema({
+            title: course.title,
+            description: course.description,
+            price: course.fee || 0,
+            slug: course.slug,
+          })}
+        />
+      ))}
+      <div className="py-20 bg-background font-worksans text-primary flex flex-col items-center">
       <div className="w-full max-w-container-max px-margin-mobile md:px-gutter space-y-16">
         
         {/* Page Header */}
@@ -159,5 +172,6 @@ export default async function CoursesPage() {
 
       </div>
     </div>
+    </>
   );
 }

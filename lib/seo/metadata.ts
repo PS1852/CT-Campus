@@ -105,8 +105,8 @@ export function getLocalBusinessSchema() {
     },
     'geo': {
       '@type': 'GeoCoordinates',
-      'latitude': '28.6464522',
-      'longitude': '77.1868352'
+      'latitude': '28.6450779',
+      'longitude': '77.1922226'
     },
     'openingHoursSpecification': {
       '@type': 'OpeningHoursSpecification',

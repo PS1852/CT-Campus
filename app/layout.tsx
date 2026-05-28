@@ -16,6 +16,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ctcampus.co.in'),
   title: "CT CAMPUS — Mentorship for CLAT, IPMAT & CUET Success",
   description: "CT CAMPUS Karol Bagh offers top-tier academic mentorship for undergraduate law (CLAT/AILET), management (IPMAT), and central university (CUET) entrances.",
 };
